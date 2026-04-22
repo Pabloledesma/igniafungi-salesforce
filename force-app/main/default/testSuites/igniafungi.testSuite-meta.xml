@@ -6,6 +6,7 @@
     <testClassName>CosechaTriggerTest</testClassName>
     <testClassName>DashboardProduccionControllerTest</testClassName>
     <testClassName>LoteNombreServiceTest</testClassName>
+    <testClassName>LoteResourceTest</testClassName>
     <testClassName>LoteServiceTest</testClassName>
     <testClassName>LoteTriggerTest</testClassName>
     <testClassName>RecalcularEficienciaBatchTest</testClassName>

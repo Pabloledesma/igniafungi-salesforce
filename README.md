@@ -379,6 +379,66 @@ To add to a record page: go to Object Manager → `Lote__c` → Buttons, Links, 
 
 ---
 
+## Milestone 4 — Web Services e Integración
+
+### HU-13: Apex REST Resource — Lotes
+
+**Class:** `LoteResource` — `@RestResource(urlMapping='/ignia/lotes/*')`
+
+Exposes `Lote__c` data to the Laravel backend over HTTPS using Salesforce Connected App credentials.
+
+#### Endpoints
+
+| Method | URL | Description |
+|--------|-----|-------------|
+| `GET` | `/services/apexrest/ignia/lotes/` | Returns all non-archived lotes |
+| `GET` | `/services/apexrest/ignia/lotes/{id}` | Returns a single lote |
+| `PATCH` | `/services/apexrest/ignia/lotes/{id}` | Partially updates a lote |
+
+`{id}` accepts either a **Salesforce record ID** (15 or 18 chars) or a numeric **`ignia_id__c`** (the Laravel internal ID).
+
+#### Response envelope
+
+All responses follow a consistent JSON structure:
+
+```json
+{ "success": true,  "data": { ... }, "error": null }
+{ "success": false, "data": null,    "error": "message" }
+```
+
+HTTP status codes: `200 OK` · `400 Bad Request` · `404 Not Found` · `500 Internal Server Error`
+
+#### LoteDTO fields
+
+| JSON field | Salesforce field |
+|------------|-----------------|
+| `id` | `Id` |
+| `name` | `Name` |
+| `cepa` | `Cepa__c` |
+| `estado` | `Estado__c` |
+| `fechaInoculacion` | `Fecha_Inoculacion__c` |
+| `pesoInicialKg` | `Peso_inicial_Kg__c` |
+| `eficienciaBiologica` | `Eficiencia_Biologica__c` |
+| `totalCosechadoKg` | `Total_Cosechado_Kg__c` |
+| `cantidadCosechas` | `Cantidad_Cosechas__c` |
+| `igniaId` | `ignia_id__c` |
+| `archivado` | `Archivado__c` |
+
+#### PATCH body
+
+```json
+{
+  "cepa":         "Shiitake Premium",
+  "estado":       "En Producción",
+  "pesoInicialKg": 12.5,
+  "igniaId":      42
+}
+```
+
+All fields are optional. Only the fields present in the body are updated.
+
+---
+
 ## Deployment
 
 ### Retrieve metadata from org
