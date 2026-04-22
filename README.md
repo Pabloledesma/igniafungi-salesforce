@@ -21,7 +21,8 @@ force-app/main/default/
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
 ├── objects/
 │   ├── Lote__c/                  # Batch object with custom fields + validation rules
-│   └── Cosecha__c/               # Harvest object with custom fields
+│   ├── Cosecha__c/               # Harvest object with custom fields
+│   └── Log_Proceso__c/           # Process execution log
 ├── permissionsets/
 │   └── Igniafungi_Admin.permissionset-meta.xml
 ├── testSuites/
@@ -175,11 +176,11 @@ Database.executeBatch(new RecalcularEficienciaBatch(), 200);
 
 - **`start()`** — queries all `Lote__c` where `Estado__c != 'Archivado'`
 - **`execute()`** — calls `LoteService.calcularEficiencia()` per chunk; exceptions are caught and counted without stopping the job
-- **`finish()`** — placeholder for `Log_Proceso__c` logging (HU-06)
+- **`finish()`** — inserts one `Log_Proceso__c` record with the execution summary
 
-### HU-06: Scheduler
+### HU-06: Scheduler & Execution Log
 
-**Class:** `RecalcularEficienciaScheduler`
+**Scheduler class:** `RecalcularEficienciaScheduler`
 
 Schedulable wrapper that fires `RecalcularEficienciaBatch` on a cron schedule.
 
@@ -188,7 +189,19 @@ Schedulable wrapper that fires `RecalcularEficienciaBatch` on a cron schedule.
 System.schedule('RecalcularEficiencia Nightly', '0 0 2 * * ?', new RecalcularEficienciaScheduler());
 ```
 
-> `Log_Proceso__c` logging pending implementation.
+**Log object:** `Log_Proceso__c`
+
+One record is created per batch run in `finish()`:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Name` | Text | `RecalcularEficienciaBatch YYYY-MM-DD HH:mm` |
+| `Tipo_Proceso__c` | Text(100) | Batch class name |
+| `Fecha_Ejecucion__c` | DateTime | Execution timestamp |
+| `Registros_Procesados__c` | Number | Records processed without error |
+| `Registros_con_Error__c` | Number | Records that threw an exception |
+| `Estado__c` | Picklist | `Exitoso` / `Con Errores` |
+| `Job_Id__c` | Text(18) | Salesforce `AsyncApexJob` ID |
 
 ---
 

@@ -107,4 +107,52 @@ private class RecalcularEficienciaBatchTest {
         ];
         System.assertEquals(50, processedCount);
     }
+
+    // ── finish() / Log_Proceso__c ─────────────────────────────────────────────
+
+    @IsTest
+    static void finish_withNoErrors_createsExitosoLog() {
+        RecalcularEficienciaBatch batchInstance = new RecalcularEficienciaBatch();
+        batchInstance.totalProcesados = 10;
+        batchInstance.totalErrores    = 0;
+
+        Test.startTest();
+        batchInstance.finish(null);
+        Test.stopTest();
+
+        Log_Proceso__c log = [
+            SELECT Tipo_Proceso__c, Registros_Procesados__c, Registros_con_Error__c, Estado__c
+            FROM Log_Proceso__c
+            LIMIT 1
+        ];
+        System.assertEquals('RecalcularEficienciaBatch', log.Tipo_Proceso__c);
+        System.assertEquals(10, log.Registros_Procesados__c);
+        System.assertEquals(0,  log.Registros_con_Error__c);
+        System.assertEquals('Exitoso', log.Estado__c);
+    }
+
+    @IsTest
+    static void finish_withErrors_createsConErroresLog() {
+        RecalcularEficienciaBatch batchInstance = new RecalcularEficienciaBatch();
+        batchInstance.totalProcesados = 8;
+        batchInstance.totalErrores    = 2;
+
+        Test.startTest();
+        batchInstance.finish(null);
+        Test.stopTest();
+
+        Log_Proceso__c log = [SELECT Estado__c, Registros_con_Error__c FROM Log_Proceso__c LIMIT 1];
+        System.assertEquals('Con Errores', log.Estado__c);
+        System.assertEquals(2, log.Registros_con_Error__c);
+    }
+
+    @IsTest
+    static void fullBatchRun_createsLogRecord() {
+        Test.startTest();
+        Database.executeBatch(new RecalcularEficienciaBatch(), 200);
+        Test.stopTest();
+
+        Integer logCount = [SELECT COUNT() FROM Log_Proceso__c];
+        System.assertEquals(1, logCount, 'One log record should be created per batch run');
+    }
 }

@@ -21,6 +21,14 @@ public class RecalcularEficienciaBatch implements Database.Batchable<SObject>, D
     }
 
     public void finish(Database.BatchableContext bc) {
-        // Logging to Log_Proceso__c implemented in HU-06
+        insert new Log_Proceso__c(
+            Name                    = 'RecalcularEficienciaBatch ' + DateTime.now().format('yyyy-MM-dd HH:mm'),
+            Tipo_Proceso__c         = 'RecalcularEficienciaBatch',
+            Fecha_Ejecucion__c      = DateTime.now(),
+            Registros_Procesados__c = totalProcesados,
+            Registros_con_Error__c  = totalErrores,
+            Estado__c               = totalErrores == 0 ? 'Exitoso' : 'Con Errores',
+            Job_Id__c               = bc != null ? String.valueOf(bc.getJobId()) : null
+        );
     }
 }

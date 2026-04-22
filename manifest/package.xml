@@ -3,6 +3,7 @@
     <types>
         <members>Lote__c</members>
         <members>Cosecha__c</members>
+        <members>Log_Proceso__c</members>
         <name>CustomObject</name>
     </types>
     <types>
