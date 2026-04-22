@@ -1,0 +1,69 @@
+<template>
+    <lightning-card title="Dashboard de Producción" icon-name="standard:dashboard">
+        <div class="slds-p-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows>
+                
+                <!-- Lotes Activos -->
+                <lightning-layout-item padding="around-small" size="12" small-device-size="4">
+                    <div class="slds-box slds-text-align_center slds-theme_default slds-m-bottom_small">
+                        <div class="slds-text-heading_small slds-text-color_weak slds-m-bottom_x-small">Lotes Activos</div>
+                        <template if:true={lotesActivos.data}>
+                            <div class="slds-text-heading_large slds-text-color_default">
+                                {lotesActivos.data}
+                            </div>
+                        </template>
+                        <template if:false={lotesActivos.data}>
+                            <template if:false={lotesActivos.error}>
+                                <div class="slds-text-heading_large slds-text-color_default">0</div>
+                            </template>
+                        </template>
+                        <template if:true={lotesActivos.error}>
+                            <div class="slds-text-color_error">Error al cargar</div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+
+                <!-- Kg Cosechados -->
+                <lightning-layout-item padding="around-small" size="12" small-device-size="4">
+                    <div class="slds-box slds-text-align_center slds-theme_default slds-m-bottom_small">
+                        <div class="slds-text-heading_small slds-text-color_weak slds-m-bottom_x-small">Kg Cosechados (Mes)</div>
+                        <template if:true={kgCosechados.data}>
+                            <div class="slds-text-heading_large slds-text-color_success">
+                                {kgCosechados.data} <span class="slds-text-heading_small">kg</span>
+                            </div>
+                        </template>
+                        <template if:false={kgCosechados.data}>
+                            <template if:false={kgCosechados.error}>
+                                <div class="slds-text-heading_large slds-text-color_success">0 <span class="slds-text-heading_small">kg</span></div>
+                            </template>
+                        </template>
+                        <template if:true={kgCosechados.error}>
+                            <div class="slds-text-color_error">Error al cargar</div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+
+                <!-- Eficiencia Promedio -->
+                <lightning-layout-item padding="around-small" size="12" small-device-size="4">
+                    <div class="slds-box slds-text-align_center slds-theme_default slds-m-bottom_small">
+                        <div class="slds-text-heading_small slds-text-color_weak slds-m-bottom_x-small">Eficiencia Promedio</div>
+                        <template if:true={eficienciaPromedio.data}>
+                            <div class="slds-text-heading_large slds-text-color_default">
+                                {eficienciaPromedio.data}%
+                            </div>
+                        </template>
+                        <template if:false={eficienciaPromedio.data}>
+                            <template if:false={eficienciaPromedio.error}>
+                                <div class="slds-text-heading_large slds-text-color_default">0%</div>
+                            </template>
+                        </template>
+                        <template if:true={eficienciaPromedio.error}>
+                            <div class="slds-text-color_error">Error al cargar</div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

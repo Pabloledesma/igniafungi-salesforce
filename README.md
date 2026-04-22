@@ -19,7 +19,9 @@ force-app/main/default/
 │   ├── RecalcularEficienciaScheduler.cls     # Scheduler: runs batch daily at 2am
 │   ├── ArchivarLotesViejos.cls               # Batch: archives lotes inactive for 180+ days
 │   ├── CosechaTimelineController.cls         # Controller: queries harvests and calculates accumulated weight
-│   └── CosechaTimelineControllerTest.cls     # Test class for CosechaTimelineController
+│   ├── CosechaTimelineControllerTest.cls     # Test class for CosechaTimelineController
+│   ├── DashboardProduccionController.cls     # Controller: aggregates active lotes, harvests, and efficiency
+│   └── DashboardProduccionControllerTest.cls # Test class for DashboardProduccionController
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -33,7 +35,8 @@ force-app/main/default/
 │   └── igniafungi.testSuite-meta.xml
 ├── lwc/
 │   ├── loteCard/                 # LWC: production summary card for Lote__c record page
-│   └── cosechaTimeline/          # LWC: chronological harvest timeline with accumulated weight
+│   ├── cosechaTimeline/          # LWC: chronological harvest timeline with accumulated weight
+│   └── dashboardProduccion/      # LWC: global metrics for Home Page
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -335,6 +338,23 @@ Displays a chronological timeline of all harvests (`Cosecha__c`) related to a ba
 - Enables direct navigation to specific harvest records using `NavigationMixin`.
 
 To add to a record page: open Lightning App Builder on any `Lote__c` record → drag **Cosecha Timeline** from the custom components panel.
+
+---
+
+### HU-11: Dashboard Producción
+
+**Component:** `dashboardProduccion` — placed on the Home Page via Lightning App Builder.
+
+Displays high-level global metrics of the farm's active operation using server-side Apex aggregations.
+
+**Key Features:**
+- **Lotes Activos**: Counts batches currently in production (excludes `Finalizado` and `Archivado`).
+- **Kg Cosechados (Mes)**: Dynamically calculates the total weight harvested in the current calendar month.
+- **Eficiencia Promedio**: Calculates the average biological efficiency across all batches, ignoring empty ones.
+- Fully responsive grid layout (`lightning-layout`) that adjusts gracefully from desktop to mobile screens.
+- Utilizes `@AuraEnabled(cacheable=true)` for lightning-fast loading via Lightning Data Service cache.
+
+To add to the Home Page: open Lightning App Builder on the Home Page → drag **Dashboard de Producción** from the custom components panel.
 
 ---
 
