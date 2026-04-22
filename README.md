@@ -21,7 +21,9 @@ force-app/main/default/
 │   ├── CosechaTimelineController.cls         # Controller: queries harvests and calculates accumulated weight
 │   ├── CosechaTimelineControllerTest.cls     # Test class for CosechaTimelineController
 │   ├── DashboardProduccionController.cls     # Controller: aggregates active lotes, harvests, and efficiency
-│   └── DashboardProduccionControllerTest.cls # Test class for DashboardProduccionController
+│   ├── DashboardProduccionControllerTest.cls # Test class for DashboardProduccionController
+│   ├── RegistrarCosechaController.cls        # Controller: creates new harvest records imperatively
+│   └── RegistrarCosechaControllerTest.cls    # Test class for RegistrarCosechaController
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -36,7 +38,8 @@ force-app/main/default/
 ├── lwc/
 │   ├── loteCard/                 # LWC: production summary card for Lote__c record page
 │   ├── cosechaTimeline/          # LWC: chronological harvest timeline with accumulated weight
-│   └── dashboardProduccion/      # LWC: global metrics for Home Page
+│   ├── dashboardProduccion/      # LWC: global metrics for Home Page
+│   └── registrarCosecha/         # LWC: quick-entry form to register a new harvest
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -355,6 +358,24 @@ Displays high-level global metrics of the farm's active operation using server-s
 - Utilizes `@AuraEnabled(cacheable=true)` for lightning-fast loading via Lightning Data Service cache.
 
 To add to the Home Page: open Lightning App Builder on the Home Page → drag **Dashboard de Producción** from the custom components panel.
+
+---
+
+### HU-12: Registrar Cosecha
+
+**Component:** `registrarCosecha` — exposed as a Quick Action (`lightning__RecordAction`) for the `Lote__c` object.
+
+Displays a quick-entry modal form to register a new harvest (`Cosecha__c`) directly from the batch record, without navigating away.
+
+**Key Features:**
+- Designed as a **Screen Action** using `lightning-quick-action-panel` for a native modal experience.
+- Uses **Imperative Apex** (`crearCosecha`) to insert the record securely.
+- Captures `Peso_Kg__c`, `Fecha_cosecha__c`, and `Notas__c`.
+- Automatically associates the harvest with the current `Lote__c` context using `@api recordId`.
+- Provides user feedback via `ShowToastEvent` on success or failure.
+- Dispatches a `RefreshEvent` and a `CloseActionScreenEvent` upon successful creation to close the modal and automatically refresh sibling components (like the Lote Card and Cosecha Timeline) via Lightning Data Service cache invalidation.
+
+To add to a record page: go to Object Manager → `Lote__c` → Buttons, Links, and Actions → New Action → Select "Lightning Web Component" and choose `registrarCosecha`. Then add the action to the Page Layout.
 
 ---
 

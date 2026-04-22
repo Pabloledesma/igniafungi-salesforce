@@ -10,5 +10,6 @@
     <testClassName>LoteTriggerTest</testClassName>
     <testClassName>RecalcularEficienciaBatchTest</testClassName>
     <testClassName>RecalcularEficienciaSchedulerTest</testClassName>
+    <testClassName>RegistrarCosechaControllerTest</testClassName>
     <testClassName>TriggerHandlerTest</testClassName>
 </ApexTestSuite>

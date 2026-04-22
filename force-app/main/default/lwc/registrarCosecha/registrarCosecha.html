@@ -1,0 +1,48 @@
+<template>
+    <lightning-quick-action-panel header="Registrar Nueva Cosecha">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Guardando..." size="medium"></lightning-spinner>
+        </template>
+        
+        <lightning-input 
+            type="number" 
+            label="Peso Cosechado (Kg)" 
+            step="0.01" 
+            value={peso} 
+            required
+            onchange={handlePesoChange}
+            class="slds-m-bottom_small">
+        </lightning-input>
+        
+        <lightning-input 
+            type="date" 
+            label="Fecha de Cosecha" 
+            value={fecha} 
+            required
+            onchange={handleFechaChange}
+            class="slds-m-bottom_small">
+        </lightning-input>
+        
+        <lightning-textarea 
+            label="Notas" 
+            value={notas}
+            onchange={handleNotasChange}
+            class="slds-m-bottom_medium">
+        </lightning-textarea>
+        
+        <div slot="footer">
+            <lightning-button 
+                variant="neutral" 
+                label="Cancelar" 
+                onclick={handleCancel}
+                class="slds-m-right_x-small">
+            </lightning-button>
+            <lightning-button 
+                variant="brand" 
+                label="Guardar" 
+                onclick={handleGuardar} 
+                disabled={isLoading}>
+            </lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>
