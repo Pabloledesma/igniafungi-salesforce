@@ -4,5 +4,7 @@
     <testClassName>LoteNombreServiceTest</testClassName>
     <testClassName>LoteServiceTest</testClassName>
     <testClassName>LoteTriggerTest</testClassName>
+    <testClassName>RecalcularEficienciaBatchTest</testClassName>
+    <testClassName>RecalcularEficienciaSchedulerTest</testClassName>
     <testClassName>TriggerHandlerTest</testClassName>
 </ApexTestSuite>

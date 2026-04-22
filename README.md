@@ -9,11 +9,13 @@ Salesforce DX project for managing mushroom cultivation operations: batch tracki
 ```
 force-app/main/default/
 ├── classes/
-│   ├── TriggerHandler.cls        # Base trigger handler framework
-│   ├── LoteHandler.cls           # Trigger handler for Lote__c
-│   ├── CosechaHandler.cls        # Trigger handler for Cosecha__c
-│   ├── LoteNombreService.cls     # Business logic: auto-naming for Lote__c
-│   └── LoteService.cls           # Business logic: biological efficiency calculation
+│   ├── TriggerHandler.cls               # Base trigger handler framework
+│   ├── LoteHandler.cls                  # Trigger handler for Lote__c
+│   ├── CosechaHandler.cls               # Trigger handler for Cosecha__c
+│   ├── LoteNombreService.cls            # Business logic: auto-naming for Lote__c
+│   ├── LoteService.cls                  # Business logic: biological efficiency calculation
+│   ├── RecalcularEficienciaBatch.cls    # Batch: nightly efficiency recalculation
+│   └── RecalcularEficienciaScheduler.cls  # Scheduler: runs batch daily at 2am
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -150,6 +152,45 @@ Eficiencia_Biologica__c = (SUM(Cosecha__c.Peso_Kg__c) / Peso_inicial_Kg__c) * 10
 **Edge cases:**
 - `Peso_inicial_Kg__c` is null or `0` → `Eficiencia_Biologica__c` is set to `0` (prevents division by zero)
 - `Lote__c` inserted without `Peso_inicial_Kg__c` → field stays `null` until peso is set
+
+---
+
+## Milestone 2 — Batch Apex & Scheduled Jobs
+
+### HU-05: Nightly Efficiency Recalculation Batch
+
+**Class:** `RecalcularEficienciaBatch`
+
+Batch Apex job that recalculates `Eficiencia_Biologica__c` for all non-archived batches. Intended to run nightly to keep efficiency values consistent after any direct data changes.
+
+```apex
+// Run manually
+Database.executeBatch(new RecalcularEficienciaBatch(), 200);
+```
+
+| Interface | Purpose |
+|-----------|---------|
+| `Database.Batchable<SObject>` | Processes lotes in chunks of 200 |
+| `Database.Stateful` | Accumulates `totalProcesados` and `totalErrores` across chunks |
+
+- **`start()`** — queries all `Lote__c` where `Estado__c != 'Archivado'`
+- **`execute()`** — calls `LoteService.calcularEficiencia()` per chunk; exceptions are caught and counted without stopping the job
+- **`finish()`** — placeholder for `Log_Proceso__c` logging (HU-06)
+
+### HU-06: Scheduler
+
+**Class:** `RecalcularEficienciaScheduler`
+
+Schedulable wrapper that fires `RecalcularEficienciaBatch` on a cron schedule.
+
+```apex
+// Schedule daily at 2am
+System.schedule('RecalcularEficiencia Nightly', '0 0 2 * * ?', new RecalcularEficienciaScheduler());
+```
+
+> `Log_Proceso__c` logging pending implementation.
+
+---
 
 ### HU-03: Inoculation Date Validation
 
