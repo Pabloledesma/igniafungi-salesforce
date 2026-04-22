@@ -29,6 +29,8 @@ force-app/main/default/
 │   └── Igniafungi_Admin.permissionset-meta.xml
 ├── testSuites/
 │   └── igniafungi.testSuite-meta.xml
+├── lwc/
+│   └── loteCard/                 # LWC: production summary card for Lote__c record page
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -282,6 +284,38 @@ Prevents saving a `Lote__c` with an inoculation date more than 7 days in the fut
 Error condition: Fecha_Inoculacion__c > TODAY() + 7
 Error field:     Fecha_Inoculacion__c
 ```
+
+---
+
+## Milestone 3 — Lightning Web Components
+
+### HU-09: Lote Card
+
+**Component:** `loteCard` — placed on the `Lote__c` record page via Lightning App Builder.
+
+Displays a production summary for the current batch using `@wire(getRecord)`:
+
+| Section | Fields |
+|---------|--------|
+| Status badge | `Estado__c` — color-coded per lifecycle stage |
+| Metrics grid | Días activo · Cosechas · Total cosechado (kg) · Eficiencia biológica (%) |
+| Progress bar | `Eficiencia_Biologica__c` clamped to 100 for display |
+
+**Estado badge colors:**
+
+| Value | Color |
+|-------|-------|
+| En Inoculación | Blue |
+| En Colonización | Orange |
+| En Producción | Green |
+| Finalizado | Purple |
+| Archivado | Grey |
+
+**Días activo** is computed client-side: `Math.floor((Date.now() − Fecha_Inoculacion__c) / ms_per_day)`.
+
+The component exposes loading and error states using `lwc:if` / `lwc:elseif` / `lwc:else` directives.
+
+To add to a record page: open Lightning App Builder on any `Lote__c` record → drag **Lote Card** from the custom components panel.
 
 ---
 

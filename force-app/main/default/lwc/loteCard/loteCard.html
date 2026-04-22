@@ -1,0 +1,58 @@
+<template>
+    <lightning-card title="Resumen de Producción" icon-name="standard:product">
+
+        <template lwc:if={isLoading}>
+            <div class="slds-m-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Cargando..." size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:elseif={hasError}>
+            <div class="slds-m-around_medium">
+                <p class="slds-text-color_error">No se pudo cargar la información del lote.</p>
+            </div>
+        </template>
+
+        <template lwc:else>
+            <div class="slds-m-around_medium">
+
+                <!-- Estado -->
+                <div class="slds-m-bottom_medium">
+                    <span class={estadoClass}>{estado}</span>
+                </div>
+
+                <!-- Métricas -->
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                        <p class="metric-label">Días activo</p>
+                        <p class="metric-value">{diasDesdeInoculacion}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                        <p class="metric-label">Cosechas</p>
+                        <p class="metric-value">{cantidadCosechas}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <p class="metric-label">Total cosechado</p>
+                        <p class="metric-value">
+                            {totalCosechadoKg}&nbsp;<span class="metric-unit">kg</span>
+                        </p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <p class="metric-label">Eficiencia biológica</p>
+                        <p class="metric-value">
+                            {eficienciaBiologica}<span class="metric-unit">%</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Barra de eficiencia -->
+                <div class="slds-m-top_medium">
+                    <p class="metric-label slds-m-bottom_x-small">Rendimiento vs. sustrato</p>
+                    <lightning-progress-bar value={eficienciaClamped} size="large"></lightning-progress-bar>
+                </div>
+
+            </div>
+        </template>
+
+    </lightning-card>
+</template>

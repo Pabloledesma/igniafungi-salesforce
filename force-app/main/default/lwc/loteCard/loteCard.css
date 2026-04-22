@@ -1,0 +1,38 @@
+.metric-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #706e6b;
+    margin-bottom: 0.2rem;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #181818;
+    line-height: 1.2;
+}
+
+.metric-unit {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #706e6b;
+}
+
+.estado-badge {
+    display: inline-block;
+    padding: 0.25rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+}
+
+.estado-inoculacion  { background-color: #3e7fc1; }
+.estado-colonizacion { background-color: #e07b23; }
+.estado-produccion   { background-color: #2e844a; }
+.estado-finalizado   { background-color: #5867e8; }
+.estado-archivado    { background-color: #9aa7b5; }
