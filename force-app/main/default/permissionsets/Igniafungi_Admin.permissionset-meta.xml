@@ -27,7 +27,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Lote__c.Archivado__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Lote__c.Cantidad__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lote__c.Cantidad_Cosechas__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -63,6 +73,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lote__c.Tipo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lote__c.Total_Cosechado_Kg__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -13,7 +13,11 @@ public with sharing class CosechaHandler extends TriggerHandler {
     }
 
     protected override void afterInsert() {
-        LoteService.calcularEficiencia(collectLoteIds(newList, null));
+        Set<Id> loteIds = collectLoteIds(newList, null);
+        LoteService.calcularEficiencia(loteIds);
+        if (!loteIds.isEmpty() && !System.isBatch()) {
+            System.enqueueJob(new ActualizarTotalesLoteQueueable(loteIds));
+        }
     }
 
     protected override void afterUpdate() {

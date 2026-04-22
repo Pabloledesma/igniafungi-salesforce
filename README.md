@@ -9,14 +9,15 @@ Salesforce DX project for managing mushroom cultivation operations: batch tracki
 ```
 force-app/main/default/
 ├── classes/
-│   ├── TriggerHandler.cls               # Base trigger handler framework
-│   ├── LoteHandler.cls                  # Trigger handler for Lote__c
-│   ├── CosechaHandler.cls               # Trigger handler for Cosecha__c
-│   ├── LoteNombreService.cls            # Business logic: auto-naming for Lote__c
-│   ├── LoteService.cls                  # Business logic: biological efficiency calculation
-│   ├── RecalcularEficienciaBatch.cls    # Batch: nightly efficiency recalculation
-│   ├── RecalcularEficienciaScheduler.cls  # Scheduler: runs batch daily at 2am
-│   └── ArchivarLotesViejos.cls          # Batch: archives lotes inactive for 180+ days
+│   ├── TriggerHandler.cls                    # Base trigger handler framework
+│   ├── LoteHandler.cls                       # Trigger handler for Lote__c
+│   ├── CosechaHandler.cls                    # Trigger handler for Cosecha__c
+│   ├── LoteNombreService.cls                 # Business logic: auto-naming for Lote__c
+│   ├── LoteService.cls                       # Business logic: biological efficiency calculation
+│   ├── ActualizarTotalesLoteQueueable.cls    # Queueable: async update of harvest totals
+│   ├── RecalcularEficienciaBatch.cls         # Batch: nightly efficiency recalculation
+│   ├── RecalcularEficienciaScheduler.cls     # Scheduler: runs batch daily at 2am
+│   └── ArchivarLotesViejos.cls               # Batch: archives lotes inactive for 180+ days
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -48,6 +49,8 @@ Represents a single mushroom cultivation batch from inoculation to harvest.
 | `Fecha_Inoculacion__c` | Date | Inoculation date |
 | `Estado__c` | Picklist | Batch lifecycle status: `En Inoculación` · `En Colonización` · `En Producción` · `Finalizado` · `Archivado` |
 | `Archivado__c` | Checkbox | `true` when the batch has been archived by the `ArchivarLotesViejos` batch |
+| `Total_Cosechado_Kg__c` | Number(12,4) | Sum of all harvest weights in kg — updated asynchronously by `ActualizarTotalesLoteQueueable` |
+| `Cantidad_Cosechas__c` | Number(10,0) | Count of harvest records — updated asynchronously by `ActualizarTotalesLoteQueueable` |
 | `Tipo__c` | Text(20) | Batch type |
 | `Codigo__c` | Text(50) | Internal batch code |
 | `Peso_inicial_Kg__c` | Number(8,4) | Initial substrate weight in kg |
@@ -204,6 +207,32 @@ One record is created per batch run in `finish()`:
 | `Registros_con_Error__c` | Number | Records that threw an exception |
 | `Estado__c` | Picklist | `Exitoso` / `Con Errores` |
 | `Job_Id__c` | Text(18) | Salesforce `AsyncApexJob` ID |
+
+### HU-08: Async Harvest Totals Update
+
+**Class:** `ActualizarTotalesLoteQueueable`
+
+Queueable Apex job that updates two summary fields on `Lote__c` after a harvest is recorded. Because the aggregation runs in a separate transaction, the cosecha insert completes immediately and the totals are consistent without consuming the trigger's governor limits.
+
+**Fields updated:**
+
+| Field | Calculation |
+|-------|-------------|
+| `Total_Cosechado_Kg__c` | `SUM(Cosecha__c.Peso_Kg__c)` |
+| `Cantidad_Cosechas__c` | `COUNT(Cosecha__c)` |
+
+**When it runs:** `CosechaHandler.afterInsert` enqueues the job after the synchronous `LoteService.calcularEficiencia()` call.
+
+```
+Cosecha__c insert
+  └─ CosechaHandler.afterInsert
+        ├─ LoteService.calcularEficiencia()          ← sync, updates Eficiencia_Biologica__c
+        └─ System.enqueueJob(ActualizarTotalesLoteQueueable)  ← async, updates totals
+```
+
+The job is not enqueued when the trigger fires from within a batch context (`System.isBatch()`), since batch jobs cannot enqueue Queueable jobs.
+
+---
 
 ### HU-07: Archive Inactive Batches
 
