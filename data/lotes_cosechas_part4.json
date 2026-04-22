@@ -1,0 +1,1984 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef100"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-05-22",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef496"
+            },
+            "Fecha_cosecha__c": "2025-07-02",
+            "Peso_Kg__c": 0.57,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef497"
+            },
+            "Fecha_cosecha__c": "2025-07-13",
+            "Peso_Kg__c": 0.86,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef498"
+            },
+            "Fecha_cosecha__c": "2025-07-22",
+            "Peso_Kg__c": 0.55,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef499"
+            },
+            "Fecha_cosecha__c": "2025-07-29",
+            "Peso_Kg__c": 0.59,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef500"
+            },
+            "Fecha_cosecha__c": "2025-08-06",
+            "Peso_Kg__c": 1.21,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef101"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-05-11",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef501"
+            },
+            "Fecha_cosecha__c": "2025-06-18",
+            "Peso_Kg__c": 1.34,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef502"
+            },
+            "Fecha_cosecha__c": "2025-06-28",
+            "Peso_Kg__c": 0.48,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef503"
+            },
+            "Fecha_cosecha__c": "2025-07-09",
+            "Peso_Kg__c": 1.45,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef504"
+            },
+            "Fecha_cosecha__c": "2025-07-19",
+            "Peso_Kg__c": 1.06,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef505"
+            },
+            "Fecha_cosecha__c": "2025-07-28",
+            "Peso_Kg__c": 1,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef102"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-05-02",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef506"
+            },
+            "Fecha_cosecha__c": "2025-06-12",
+            "Peso_Kg__c": 1.17,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef507"
+            },
+            "Fecha_cosecha__c": "2025-06-21",
+            "Peso_Kg__c": 0.27,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef508"
+            },
+            "Fecha_cosecha__c": "2025-07-01",
+            "Peso_Kg__c": 0.97,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef509"
+            },
+            "Fecha_cosecha__c": "2025-07-08",
+            "Peso_Kg__c": 0.5,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef510"
+            },
+            "Fecha_cosecha__c": "2025-07-19",
+            "Peso_Kg__c": 1.39,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef103"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-05-14",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef511"
+            },
+            "Fecha_cosecha__c": "2025-06-21",
+            "Peso_Kg__c": 0.45,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef512"
+            },
+            "Fecha_cosecha__c": "2025-07-02",
+            "Peso_Kg__c": 0.72,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef513"
+            },
+            "Fecha_cosecha__c": "2025-07-13",
+            "Peso_Kg__c": 1.05,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef514"
+            },
+            "Fecha_cosecha__c": "2025-07-21",
+            "Peso_Kg__c": 0.53,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef515"
+            },
+            "Fecha_cosecha__c": "2025-08-01",
+            "Peso_Kg__c": 1.38,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef104"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-05-16",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef516"
+            },
+            "Fecha_cosecha__c": "2025-06-25",
+            "Peso_Kg__c": 1.4,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef517"
+            },
+            "Fecha_cosecha__c": "2025-07-05",
+            "Peso_Kg__c": 0.7,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef518"
+            },
+            "Fecha_cosecha__c": "2025-07-14",
+            "Peso_Kg__c": 0.72,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef519"
+            },
+            "Fecha_cosecha__c": "2025-07-22",
+            "Peso_Kg__c": 1.38,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef520"
+            },
+            "Fecha_cosecha__c": "2025-07-30",
+            "Peso_Kg__c": 1.36,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef105"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-05-27",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef521"
+            },
+            "Fecha_cosecha__c": "2025-07-06",
+            "Peso_Kg__c": 1.01,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef522"
+            },
+            "Fecha_cosecha__c": "2025-07-16",
+            "Peso_Kg__c": 0.61,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef523"
+            },
+            "Fecha_cosecha__c": "2025-07-25",
+            "Peso_Kg__c": 0.31,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef524"
+            },
+            "Fecha_cosecha__c": "2025-08-02",
+            "Peso_Kg__c": 1.07,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef525"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 0.99,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef106"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-06-15",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef526"
+            },
+            "Fecha_cosecha__c": "2025-07-26",
+            "Peso_Kg__c": 1.42,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef527"
+            },
+            "Fecha_cosecha__c": "2025-08-02",
+            "Peso_Kg__c": 0.87,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef528"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 1.47,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef529"
+            },
+            "Fecha_cosecha__c": "2025-08-23",
+            "Peso_Kg__c": 0.37,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef530"
+            },
+            "Fecha_cosecha__c": "2025-09-03",
+            "Peso_Kg__c": 0.42,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef107"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-06-20",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef531"
+            },
+            "Fecha_cosecha__c": "2025-07-31",
+            "Peso_Kg__c": 1.34,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef532"
+            },
+            "Fecha_cosecha__c": "2025-08-07",
+            "Peso_Kg__c": 0.44,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef533"
+            },
+            "Fecha_cosecha__c": "2025-08-17",
+            "Peso_Kg__c": 0.77,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef534"
+            },
+            "Fecha_cosecha__c": "2025-08-26",
+            "Peso_Kg__c": 1.38,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef535"
+            },
+            "Fecha_cosecha__c": "2025-09-05",
+            "Peso_Kg__c": 1.25,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef108"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-06-20",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef536"
+            },
+            "Fecha_cosecha__c": "2025-07-28",
+            "Peso_Kg__c": 1.13,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef537"
+            },
+            "Fecha_cosecha__c": "2025-08-08",
+            "Peso_Kg__c": 0.65,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef538"
+            },
+            "Fecha_cosecha__c": "2025-08-15",
+            "Peso_Kg__c": 1.44,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef539"
+            },
+            "Fecha_cosecha__c": "2025-08-25",
+            "Peso_Kg__c": 1,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef540"
+            },
+            "Fecha_cosecha__c": "2025-09-01",
+            "Peso_Kg__c": 1.32,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef109"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-06-25",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef541"
+            },
+            "Fecha_cosecha__c": "2025-08-03",
+            "Peso_Kg__c": 1.15,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef542"
+            },
+            "Fecha_cosecha__c": "2025-08-11",
+            "Peso_Kg__c": 0.57,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef543"
+            },
+            "Fecha_cosecha__c": "2025-08-20",
+            "Peso_Kg__c": 0.33,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef544"
+            },
+            "Fecha_cosecha__c": "2025-08-28",
+            "Peso_Kg__c": 1.41,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef545"
+            },
+            "Fecha_cosecha__c": "2025-09-07",
+            "Peso_Kg__c": 0.67,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef110"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-06-12",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef546"
+            },
+            "Fecha_cosecha__c": "2025-07-19",
+            "Peso_Kg__c": 0.65,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef547"
+            },
+            "Fecha_cosecha__c": "2025-07-30",
+            "Peso_Kg__c": 0.55,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef548"
+            },
+            "Fecha_cosecha__c": "2025-08-07",
+            "Peso_Kg__c": 1.19,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef549"
+            },
+            "Fecha_cosecha__c": "2025-08-14",
+            "Peso_Kg__c": 0.58,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef550"
+            },
+            "Fecha_cosecha__c": "2025-08-25",
+            "Peso_Kg__c": 0.81,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef111"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-06-01",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef551"
+            },
+            "Fecha_cosecha__c": "2025-07-11",
+            "Peso_Kg__c": 1.25,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef552"
+            },
+            "Fecha_cosecha__c": "2025-07-18",
+            "Peso_Kg__c": 1.15,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef553"
+            },
+            "Fecha_cosecha__c": "2025-07-29",
+            "Peso_Kg__c": 0.87,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef554"
+            },
+            "Fecha_cosecha__c": "2025-08-06",
+            "Peso_Kg__c": 0.57,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef555"
+            },
+            "Fecha_cosecha__c": "2025-08-15",
+            "Peso_Kg__c": 1.44,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef112"
+      },
+      "Cepa__c": "Orellana rosada",
+      "Fecha_Inoculacion__c": "2025-06-24",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef556"
+            },
+            "Fecha_cosecha__c": "2025-08-01",
+            "Peso_Kg__c": 1.36,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef557"
+            },
+            "Fecha_cosecha__c": "2025-08-12",
+            "Peso_Kg__c": 0.43,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef558"
+            },
+            "Fecha_cosecha__c": "2025-08-23",
+            "Peso_Kg__c": 0.74,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef559"
+            },
+            "Fecha_cosecha__c": "2025-09-01",
+            "Peso_Kg__c": 0.34,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef560"
+            },
+            "Fecha_cosecha__c": "2025-09-08",
+            "Peso_Kg__c": 1.48,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef113"
+      },
+      "Cepa__c": "Orellana rosada",
+      "Fecha_Inoculacion__c": "2025-06-13",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef561"
+            },
+            "Fecha_cosecha__c": "2025-07-23",
+            "Peso_Kg__c": 1.12,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef562"
+            },
+            "Fecha_cosecha__c": "2025-07-31",
+            "Peso_Kg__c": 0.61,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef563"
+            },
+            "Fecha_cosecha__c": "2025-08-09",
+            "Peso_Kg__c": 1.02,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef564"
+            },
+            "Fecha_cosecha__c": "2025-08-19",
+            "Peso_Kg__c": 0.74,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef565"
+            },
+            "Fecha_cosecha__c": "2025-08-27",
+            "Peso_Kg__c": 1,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef114"
+      },
+      "Cepa__c": "Orellana rosada",
+      "Fecha_Inoculacion__c": "2025-06-09",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef566"
+            },
+            "Fecha_cosecha__c": "2025-07-16",
+            "Peso_Kg__c": 1.09,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef567"
+            },
+            "Fecha_cosecha__c": "2025-07-25",
+            "Peso_Kg__c": 0.51,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef568"
+            },
+            "Fecha_cosecha__c": "2025-08-02",
+            "Peso_Kg__c": 0.81,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef569"
+            },
+            "Fecha_cosecha__c": "2025-08-09",
+            "Peso_Kg__c": 1.38,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef570"
+            },
+            "Fecha_cosecha__c": "2025-08-17",
+            "Peso_Kg__c": 0.9,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef115"
+      },
+      "Cepa__c": "Orellana gris",
+      "Fecha_Inoculacion__c": "2025-06-26",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef571"
+            },
+            "Fecha_cosecha__c": "2025-08-04",
+            "Peso_Kg__c": 0.97,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef572"
+            },
+            "Fecha_cosecha__c": "2025-08-11",
+            "Peso_Kg__c": 1.28,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef573"
+            },
+            "Fecha_cosecha__c": "2025-08-18",
+            "Peso_Kg__c": 0.96,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef574"
+            },
+            "Fecha_cosecha__c": "2025-08-28",
+            "Peso_Kg__c": 0.86,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef575"
+            },
+            "Fecha_cosecha__c": "2025-09-04",
+            "Peso_Kg__c": 0.66,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef116"
+      },
+      "Cepa__c": "Orellana gris",
+      "Fecha_Inoculacion__c": "2025-06-03",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef576"
+            },
+            "Fecha_cosecha__c": "2025-07-10",
+            "Peso_Kg__c": 0.35,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef577"
+            },
+            "Fecha_cosecha__c": "2025-07-20",
+            "Peso_Kg__c": 1.01,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef578"
+            },
+            "Fecha_cosecha__c": "2025-07-30",
+            "Peso_Kg__c": 0.45,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef579"
+            },
+            "Fecha_cosecha__c": "2025-08-09",
+            "Peso_Kg__c": 1.26,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef580"
+            },
+            "Fecha_cosecha__c": "2025-08-19",
+            "Peso_Kg__c": 0.35,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef117"
+      },
+      "Cepa__c": "Orellana gris",
+      "Fecha_Inoculacion__c": "2025-06-23",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef581"
+            },
+            "Fecha_cosecha__c": "2025-08-03",
+            "Peso_Kg__c": 1.43,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef582"
+            },
+            "Fecha_cosecha__c": "2025-08-10",
+            "Peso_Kg__c": 1.3,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef583"
+            },
+            "Fecha_cosecha__c": "2025-08-17",
+            "Peso_Kg__c": 0.44,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef584"
+            },
+            "Fecha_cosecha__c": "2025-08-24",
+            "Peso_Kg__c": 1.29,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef585"
+            },
+            "Fecha_cosecha__c": "2025-09-02",
+            "Peso_Kg__c": 0.81,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef118"
+      },
+      "Cepa__c": "Orellana Azul",
+      "Fecha_Inoculacion__c": "2025-06-10",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef586"
+            },
+            "Fecha_cosecha__c": "2025-07-19",
+            "Peso_Kg__c": 0.53,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef587"
+            },
+            "Fecha_cosecha__c": "2025-07-29",
+            "Peso_Kg__c": 0.59,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef588"
+            },
+            "Fecha_cosecha__c": "2025-08-05",
+            "Peso_Kg__c": 0.95,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef589"
+            },
+            "Fecha_cosecha__c": "2025-08-12",
+            "Peso_Kg__c": 0.35,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef590"
+            },
+            "Fecha_cosecha__c": "2025-08-22",
+            "Peso_Kg__c": 1.38,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef119"
+      },
+      "Cepa__c": "Orellana Azul",
+      "Fecha_Inoculacion__c": "2025-06-04",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef591"
+            },
+            "Fecha_cosecha__c": "2025-07-14",
+            "Peso_Kg__c": 0.42,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef592"
+            },
+            "Fecha_cosecha__c": "2025-07-24",
+            "Peso_Kg__c": 1,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef593"
+            },
+            "Fecha_cosecha__c": "2025-08-01",
+            "Peso_Kg__c": 0.28,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef594"
+            },
+            "Fecha_cosecha__c": "2025-08-10",
+            "Peso_Kg__c": 0.66,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef595"
+            },
+            "Fecha_cosecha__c": "2025-08-21",
+            "Peso_Kg__c": 0.52,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef120"
+      },
+      "Cepa__c": "Orellana Azul",
+      "Fecha_Inoculacion__c": "2025-06-25",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef596"
+            },
+            "Fecha_cosecha__c": "2025-08-04",
+            "Peso_Kg__c": 0.33,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef597"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 0.9,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef598"
+            },
+            "Fecha_cosecha__c": "2025-08-24",
+            "Peso_Kg__c": 1.49,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef599"
+            },
+            "Fecha_cosecha__c": "2025-09-03",
+            "Peso_Kg__c": 0.91,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef600"
+            },
+            "Fecha_cosecha__c": "2025-09-12",
+            "Peso_Kg__c": 1.04,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef121"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-06-27",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef601"
+            },
+            "Fecha_cosecha__c": "2025-08-06",
+            "Peso_Kg__c": 0.52,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef602"
+            },
+            "Fecha_cosecha__c": "2025-08-16",
+            "Peso_Kg__c": 1.13,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef603"
+            },
+            "Fecha_cosecha__c": "2025-08-27",
+            "Peso_Kg__c": 0.65,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef604"
+            },
+            "Fecha_cosecha__c": "2025-09-06",
+            "Peso_Kg__c": 0.53,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef605"
+            },
+            "Fecha_cosecha__c": "2025-09-15",
+            "Peso_Kg__c": 1.2,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef122"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-06-09",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef606"
+            },
+            "Fecha_cosecha__c": "2025-07-18",
+            "Peso_Kg__c": 0.51,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef607"
+            },
+            "Fecha_cosecha__c": "2025-07-27",
+            "Peso_Kg__c": 0.38,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef608"
+            },
+            "Fecha_cosecha__c": "2025-08-03",
+            "Peso_Kg__c": 0.29,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef609"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 0.89,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef610"
+            },
+            "Fecha_cosecha__c": "2025-08-21",
+            "Peso_Kg__c": 1.49,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef123"
+      },
+      "Cepa__c": "Maitake",
+      "Fecha_Inoculacion__c": "2025-06-05",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef611"
+            },
+            "Fecha_cosecha__c": "2025-07-13",
+            "Peso_Kg__c": 0.63,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef612"
+            },
+            "Fecha_cosecha__c": "2025-07-21",
+            "Peso_Kg__c": 1.29,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef613"
+            },
+            "Fecha_cosecha__c": "2025-07-29",
+            "Peso_Kg__c": 0.94,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef614"
+            },
+            "Fecha_cosecha__c": "2025-08-05",
+            "Peso_Kg__c": 1.41,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef615"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 1.39,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef124"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-06-23",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef616"
+            },
+            "Fecha_cosecha__c": "2025-07-31",
+            "Peso_Kg__c": 0.76,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef617"
+            },
+            "Fecha_cosecha__c": "2025-08-08",
+            "Peso_Kg__c": 0.7,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef618"
+            },
+            "Fecha_cosecha__c": "2025-08-17",
+            "Peso_Kg__c": 0.7,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef619"
+            },
+            "Fecha_cosecha__c": "2025-08-28",
+            "Peso_Kg__c": 0.71,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef620"
+            },
+            "Fecha_cosecha__c": "2025-09-04",
+            "Peso_Kg__c": 1.07,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef125"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-06-03",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef621"
+            },
+            "Fecha_cosecha__c": "2025-07-12",
+            "Peso_Kg__c": 0.93,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef622"
+            },
+            "Fecha_cosecha__c": "2025-07-23",
+            "Peso_Kg__c": 0.75,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef623"
+            },
+            "Fecha_cosecha__c": "2025-08-02",
+            "Peso_Kg__c": 0.65,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef624"
+            },
+            "Fecha_cosecha__c": "2025-08-10",
+            "Peso_Kg__c": 0.64,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef625"
+            },
+            "Fecha_cosecha__c": "2025-08-20",
+            "Peso_Kg__c": 1.19,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef126"
+      },
+      "Cepa__c": "Shiitake",
+      "Fecha_Inoculacion__c": "2025-06-03",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef626"
+            },
+            "Fecha_cosecha__c": "2025-07-10",
+            "Peso_Kg__c": 0.54,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef627"
+            },
+            "Fecha_cosecha__c": "2025-07-21",
+            "Peso_Kg__c": 0.52,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef628"
+            },
+            "Fecha_cosecha__c": "2025-08-01",
+            "Peso_Kg__c": 1.02,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef629"
+            },
+            "Fecha_cosecha__c": "2025-08-08",
+            "Peso_Kg__c": 0.61,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef630"
+            },
+            "Fecha_cosecha__c": "2025-08-19",
+            "Peso_Kg__c": 0.33,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef127"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-07-21",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef631"
+            },
+            "Fecha_cosecha__c": "2025-08-29",
+            "Peso_Kg__c": 0.7,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef632"
+            },
+            "Fecha_cosecha__c": "2025-09-08",
+            "Peso_Kg__c": 0.56,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef633"
+            },
+            "Fecha_cosecha__c": "2025-09-15",
+            "Peso_Kg__c": 1.31,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef634"
+            },
+            "Fecha_cosecha__c": "2025-09-26",
+            "Peso_Kg__c": 1.4,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef635"
+            },
+            "Fecha_cosecha__c": "2025-10-04",
+            "Peso_Kg__c": 0.4,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef128"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-07-05",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef636"
+            },
+            "Fecha_cosecha__c": "2025-08-13",
+            "Peso_Kg__c": 0.49,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef637"
+            },
+            "Fecha_cosecha__c": "2025-08-20",
+            "Peso_Kg__c": 0.73,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef638"
+            },
+            "Fecha_cosecha__c": "2025-08-30",
+            "Peso_Kg__c": 0.68,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef639"
+            },
+            "Fecha_cosecha__c": "2025-09-07",
+            "Peso_Kg__c": 1.13,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef640"
+            },
+            "Fecha_cosecha__c": "2025-09-14",
+            "Peso_Kg__c": 1.44,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef129"
+      },
+      "Cepa__c": "Eriingy",
+      "Fecha_Inoculacion__c": "2025-07-27",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef641"
+            },
+            "Fecha_cosecha__c": "2025-09-02",
+            "Peso_Kg__c": 0.27,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef642"
+            },
+            "Fecha_cosecha__c": "2025-09-12",
+            "Peso_Kg__c": 1.29,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef643"
+            },
+            "Fecha_cosecha__c": "2025-09-23",
+            "Peso_Kg__c": 0.82,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef644"
+            },
+            "Fecha_cosecha__c": "2025-10-02",
+            "Peso_Kg__c": 1.06,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef645"
+            },
+            "Fecha_cosecha__c": "2025-10-10",
+            "Peso_Kg__c": 1.16,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef130"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-07-27",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef646"
+            },
+            "Fecha_cosecha__c": "2025-09-02",
+            "Peso_Kg__c": 0.56,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef647"
+            },
+            "Fecha_cosecha__c": "2025-09-12",
+            "Peso_Kg__c": 0.39,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef648"
+            },
+            "Fecha_cosecha__c": "2025-09-20",
+            "Peso_Kg__c": 1.23,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef649"
+            },
+            "Fecha_cosecha__c": "2025-09-29",
+            "Peso_Kg__c": 1.29,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef650"
+            },
+            "Fecha_cosecha__c": "2025-10-06",
+            "Peso_Kg__c": 1.13,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef131"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-07-01",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef651"
+            },
+            "Fecha_cosecha__c": "2025-08-11",
+            "Peso_Kg__c": 1.42,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef652"
+            },
+            "Fecha_cosecha__c": "2025-08-21",
+            "Peso_Kg__c": 0.93,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef653"
+            },
+            "Fecha_cosecha__c": "2025-08-30",
+            "Peso_Kg__c": 0.89,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef654"
+            },
+            "Fecha_cosecha__c": "2025-09-10",
+            "Peso_Kg__c": 0.29,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef655"
+            },
+            "Fecha_cosecha__c": "2025-09-18",
+            "Peso_Kg__c": 1.2,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "Lote__c",
+        "referenceId": "LoteRef132"
+      },
+      "Cepa__c": "Melena de Leon",
+      "Fecha_Inoculacion__c": "2025-07-18",
+      "Cantidad__c": 2,
+      "Peso_inicial_Kg__c": 4,
+      "Estado__c": "Finalizado",
+      "Cosechas__r": {
+        "records": [
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef656"
+            },
+            "Fecha_cosecha__c": "2025-08-25",
+            "Peso_Kg__c": 0.62,
+            "Notas__c": "Cosecha 1 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef657"
+            },
+            "Fecha_cosecha__c": "2025-09-05",
+            "Peso_Kg__c": 1.34,
+            "Notas__c": "Cosecha 2 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef658"
+            },
+            "Fecha_cosecha__c": "2025-09-16",
+            "Peso_Kg__c": 1.01,
+            "Notas__c": "Cosecha 3 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef659"
+            },
+            "Fecha_cosecha__c": "2025-09-24",
+            "Peso_Kg__c": 1.25,
+            "Notas__c": "Cosecha 4 del lote"
+          },
+          {
+            "attributes": {
+              "type": "Cosecha__c",
+              "referenceId": "CosechaRef660"
+            },
+            "Fecha_cosecha__c": "2025-10-01",
+            "Peso_Kg__c": 0.98,
+            "Notas__c": "Cosecha 5 del lote"
+          }
+        ]
+      }
+    }
+  ]
+}

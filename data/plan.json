@@ -1,0 +1,17 @@
+[
+  {
+    "sobject": "Lote__c",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": [
+      "lotes_cosechas_part1.json",
+      "lotes_cosechas_part2.json",
+      "lotes_cosechas_part3.json",
+      "lotes_cosechas_part4.json",
+      "lotes_cosechas_part5.json",
+      "lotes_cosechas_part6.json",
+      "lotes_cosechas_part7.json",
+      "lotes_cosechas_part8.json"
+    ]
+  }
+]
