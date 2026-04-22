@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Estado__c</fullName>
-    <externalId>false</externalId>
+    <description>Campo picklist que indica la etapa actual del lote dentro de su ciclo de vida productivo.</description>
     <label>Estado</label>
-    <length>50</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>En Inoculación</fullName>
+                <default>true</default>
+                <label>En Inoculación</label>
+            </value>
+            <value>
+                <fullName>En Colonización</fullName>
+                <default>false</default>
+                <label>En Colonización</label>
+            </value>
+            <value>
+                <fullName>En Producción</fullName>
+                <default>false</default>
+                <label>En Producción</label>
+            </value>
+            <value>
+                <fullName>Finalizado</fullName>
+                <default>false</default>
+                <label>Finalizado</label>
+            </value>
+            <value>
+                <fullName>Archivado</fullName>
+                <default>false</default>
+                <label>Archivado</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

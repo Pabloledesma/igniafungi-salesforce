@@ -15,7 +15,8 @@ force-app/main/default/
 │   ├── LoteNombreService.cls            # Business logic: auto-naming for Lote__c
 │   ├── LoteService.cls                  # Business logic: biological efficiency calculation
 │   ├── RecalcularEficienciaBatch.cls    # Batch: nightly efficiency recalculation
-│   └── RecalcularEficienciaScheduler.cls  # Scheduler: runs batch daily at 2am
+│   ├── RecalcularEficienciaScheduler.cls  # Scheduler: runs batch daily at 2am
+│   └── ArchivarLotesViejos.cls          # Batch: archives lotes inactive for 180+ days
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -45,7 +46,8 @@ Represents a single mushroom cultivation batch from inoculation to harvest.
 | `Eficiencia_Biologica__c` | Number(8,2) | Biological efficiency (%): `(total harvest / initial weight) * 100` |
 | `Cepa__c` | Text(100) | Mushroom strain name |
 | `Fecha_Inoculacion__c` | Date | Inoculation date |
-| `Estado__c` | Text(50) | Current batch status |
+| `Estado__c` | Picklist | Batch lifecycle status: `En Inoculación` · `En Colonización` · `En Producción` · `Finalizado` · `Archivado` |
+| `Archivado__c` | Checkbox | `true` when the batch has been archived by the `ArchivarLotesViejos` batch |
 | `Tipo__c` | Text(20) | Batch type |
 | `Codigo__c` | Text(50) | Internal batch code |
 | `Peso_inicial_Kg__c` | Number(8,4) | Initial substrate weight in kg |
@@ -202,6 +204,42 @@ One record is created per batch run in `finish()`:
 | `Registros_con_Error__c` | Number | Records that threw an exception |
 | `Estado__c` | Picklist | `Exitoso` / `Con Errores` |
 | `Job_Id__c` | Text(18) | Salesforce `AsyncApexJob` ID |
+
+### HU-07: Archive Inactive Batches
+
+**Class:** `ArchivarLotesViejos`
+
+Batch Apex job that marks old, inactive lotes as archived. A lote is archived when all of the following are true:
+
+- `Archivado__c = false` and `Estado__c != 'Archivado'`
+- Created more than **180 days** ago
+- Has **no `Cosecha__c` records** with `Fecha_cosecha__c` within the last 180 days
+
+```apex
+// Run manually
+Database.executeBatch(new ArchivarLotesViejos(), 200);
+```
+
+When a lote matches the criteria, `execute()` sets:
+
+```apex
+Archivado__c = true
+Estado__c    = 'Archivado'
+```
+
+The `totalArchivados` counter (exposed via `@TestVisible`) tracks how many lotes were archived across all chunks.
+
+**`Estado__c` Picklist**
+
+`Estado__c` was converted from a free-text field to a restricted Picklist to prevent arbitrary values and enforce lifecycle integrity:
+
+| Value | Meaning |
+|-------|---------|
+| `En Inoculación` | Default — batch just created |
+| `En Colonización` | Mycelium colonising the substrate |
+| `En Producción` | Active fruiting / harvest phase |
+| `Finalizado` | Cycle completed, no more harvests expected |
+| `Archivado` | Batch archived by `ArchivarLotesViejos` |
 
 ---
 

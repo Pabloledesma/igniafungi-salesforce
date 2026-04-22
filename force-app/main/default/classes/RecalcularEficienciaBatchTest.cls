@@ -6,9 +6,9 @@ private class RecalcularEficienciaBatchTest {
     @TestSetup
     static void setup() {
         List<Lote__c> lotes = new List<Lote__c>{
-            new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'Activo',    Peso_inicial_Kg__c = 10),
-            new Lote__c(Cepa__c = 'Ostra',    Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'Activo',    Peso_inicial_Kg__c = 20),
-            new Lote__c(Cepa__c = 'Maitake',  Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'Archivado', Peso_inicial_Kg__c = 10)
+            new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'En Inoculación', Peso_inicial_Kg__c = 10),
+            new Lote__c(Cepa__c = 'Ostra',    Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'En Inoculación', Peso_inicial_Kg__c = 20),
+            new Lote__c(Cepa__c = 'Maitake',  Fecha_Inoculacion__c = TEST_DATE, Estado__c = 'Archivado',      Peso_inicial_Kg__c = 10)
         };
         insert lotes;
 
@@ -88,7 +88,7 @@ private class RecalcularEficienciaBatchTest {
             extraLotes.add(new Lote__c(
                 Cepa__c              = 'Lote-Bulk',
                 Fecha_Inoculacion__c = TEST_DATE,
-                Estado__c            = 'Activo',
+                Estado__c            = 'En Inoculación',
                 Peso_inicial_Kg__c   = 10
             ));
         }
