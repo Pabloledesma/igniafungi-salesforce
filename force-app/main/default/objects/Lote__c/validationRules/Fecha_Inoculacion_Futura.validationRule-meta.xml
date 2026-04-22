@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fecha_Inoculacion_Futura</fullName>
+    <active>true</active>
+    <description>Prevents saving a batch with an inoculation date more than 7 days in the future.</description>
+    <errorConditionFormula>Fecha_Inoculacion__c &gt; TODAY() + 7</errorConditionFormula>
+    <errorDisplayField>Fecha_Inoculacion__c</errorDisplayField>
+    <errorMessage>La fecha de inoculación no puede ser mayor a 7 días en el futuro.</errorMessage>
+</ValidationRule>

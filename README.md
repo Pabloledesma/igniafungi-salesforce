@@ -18,7 +18,7 @@ force-app/main/default/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
 ├── objects/
-│   ├── Lote__c/                  # Batch object with custom fields
+│   ├── Lote__c/                  # Batch object with custom fields + validation rules
 │   └── Cosecha__c/               # Harvest object with custom fields
 ├── permissionsets/
 │   └── Igniafungi_Admin.permissionset-meta.xml
@@ -150,6 +150,17 @@ Eficiencia_Biologica__c = (SUM(Cosecha__c.Peso_Kg__c) / Peso_inicial_Kg__c) * 10
 **Edge cases:**
 - `Peso_inicial_Kg__c` is null or `0` → `Eficiencia_Biologica__c` is set to `0` (prevents division by zero)
 - `Lote__c` inserted without `Peso_inicial_Kg__c` → field stays `null` until peso is set
+
+### HU-03: Inoculation Date Validation
+
+**Metadata:** `Lote__c` Validation Rule `Fecha_Inoculacion_Futura`
+
+Prevents saving a `Lote__c` with an inoculation date more than 7 days in the future. Implemented as a declarative Validation Rule (not Apex) since the logic is a simple date comparison with no need for programmatic bypass.
+
+```
+Error condition: Fecha_Inoculacion__c > TODAY() + 7
+Error field:     Fecha_Inoculacion__c
+```
 
 ---
 
