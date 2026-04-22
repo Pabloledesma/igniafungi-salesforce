@@ -5,5 +5,9 @@
         <members>Cosecha__c</members>
         <name>CustomObject</name>
     </types>
+    <types>
+        <members>igniafungi</members>
+        <name>ApexTestSuite</name>
+    </types>
     <version>66.0</version>
 </Package>
