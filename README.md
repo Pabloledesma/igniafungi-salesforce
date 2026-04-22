@@ -17,7 +17,9 @@ force-app/main/default/
 │   ├── ActualizarTotalesLoteQueueable.cls    # Queueable: async update of harvest totals
 │   ├── RecalcularEficienciaBatch.cls         # Batch: nightly efficiency recalculation
 │   ├── RecalcularEficienciaScheduler.cls     # Scheduler: runs batch daily at 2am
-│   └── ArchivarLotesViejos.cls               # Batch: archives lotes inactive for 180+ days
+│   ├── ArchivarLotesViejos.cls               # Batch: archives lotes inactive for 180+ days
+│   ├── CosechaTimelineController.cls         # Controller: queries harvests and calculates accumulated weight
+│   └── CosechaTimelineControllerTest.cls     # Test class for CosechaTimelineController
 ├── triggers/
 │   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
 │   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
@@ -30,7 +32,8 @@ force-app/main/default/
 ├── testSuites/
 │   └── igniafungi.testSuite-meta.xml
 ├── lwc/
-│   └── loteCard/                 # LWC: production summary card for Lote__c record page
+│   ├── loteCard/                 # LWC: production summary card for Lote__c record page
+│   └── cosechaTimeline/          # LWC: chronological harvest timeline with accumulated weight
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -316,6 +319,22 @@ Displays a production summary for the current batch using `@wire(getRecord)`:
 The component exposes loading and error states using `lwc:if` / `lwc:elseif` / `lwc:else` directives.
 
 To add to a record page: open Lightning App Builder on any `Lote__c` record → drag **Lote Card** from the custom components panel.
+
+---
+
+### HU-10: Cosecha Timeline
+
+**Component:** `cosechaTimeline` — placed on the `Lote__c` record page via Lightning App Builder.
+
+Displays a chronological timeline of all harvests (`Cosecha__c`) related to a batch (`Lote__c`), along with the accumulated weight over time.
+
+**Key Features:**
+- Uses standard Salesforce Lightning Design System (SLDS) timeline classes (`slds-timeline`) for a native look and feel.
+- Calculates accumulated weight dynamically via the `CosechaTimelineController` Apex class.
+- Handles Salesforce Date parsing without timezone drift to accurately show the harvest date.
+- Enables direct navigation to specific harvest records using `NavigationMixin`.
+
+To add to a record page: open Lightning App Builder on any `Lote__c` record → drag **Cosecha Timeline** from the custom components panel.
 
 ---
 

@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="Timeline de Cosechas" icon-name="standard:case_milestone">
+        <div class="slds-p-around_medium">
+            <template if:true={hasCosechas}>
+                <ul class="slds-timeline">
+                    <template for:each={timelineData} for:item="item">
+                        <li key={item.cosecha.Id} class="slds-timeline__item">
+                            <span class="slds-assistive-text">Cosecha</span>
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="Cosecha">
+                                        <lightning-icon icon-name="standard:task" size="small"></lightning-icon>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-media slds-timeline__media slds-timeline__media_task">
+                                        <div class="slds-media__figure slds-timeline__icon"></div>
+                                        <div class="slds-media__body">
+                                            <div class="slds-media slds-media_timeline slds-timeline__media_task">
+                                                <div class="slds-media__body">
+                                                    <h3 class="slds-truncate" title={item.title}>
+                                                        <a href={item.url} data-id={item.cosecha.Id} onclick={handleRecordClick}>
+                                                            <strong>Cosecha del {item.formattedDate}</strong>
+                                                        </a>
+                                                    </h3>
+                                                    <p class="slds-m-top_x-small">
+                                                        Peso cosechado: <strong>{item.cosecha.Peso_Kg__c} kg</strong> <br/>
+                                                        Peso acumulado: <strong>{item.pesoAcumulado} kg</strong>
+                                                    </p>
+                                                    <template if:true={item.cosecha.Notas__c}>
+                                                        <p class="slds-m-top_x-small slds-text-color_weak">{item.cosecha.Notas__c}</p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template if:false={hasCosechas}>
+                <template if:false={error}>
+                    <p class="slds-text-align_center slds-text-color_weak">Aún no hay cosechas registradas en este lote.</p>
+                </template>
+            </template>
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-text-align_center">Error al cargar las cosechas: {error}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
