@@ -11,12 +11,19 @@ force-app/main/default/
 ├── classes/
 │   ├── TriggerHandler.cls        # Base trigger handler framework
 │   ├── LoteHandler.cls           # Trigger handler for Lote__c
-│   └── LoteNombreService.cls     # Business logic: auto-naming for Lote__c
+│   ├── CosechaHandler.cls        # Trigger handler for Cosecha__c
+│   ├── LoteNombreService.cls     # Business logic: auto-naming for Lote__c
+│   └── LoteService.cls           # Business logic: biological efficiency calculation
 ├── triggers/
-│   └── LoteTrigger.trigger       # Lote__c trigger (all events)
+│   ├── LoteTrigger.trigger       # Lote__c trigger (all events)
+│   └── CosechaTrigger.trigger    # Cosecha__c trigger (all events)
 ├── objects/
 │   ├── Lote__c/                  # Batch object with custom fields
 │   └── Cosecha__c/               # Harvest object with custom fields
+├── permissionsets/
+│   └── Igniafungi_Admin.permissionset-meta.xml
+├── testSuites/
+│   └── igniafungi.testSuite-meta.xml
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -31,7 +38,8 @@ Represents a single mushroom cultivation batch from inoculation to harvest.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `Name` | Text | Auto-generated as `[Cepa]-[Fecha_Inoculacion]` if left blank |
+| `Name` | Text | Auto-generated as `[Cepa]-[Fecha_Inoculacion]` on every insert |
+| `Eficiencia_Biologica__c` | Number(8,2) | Biological efficiency (%): `(total harvest / initial weight) * 100` |
 | `Cepa__c` | Text(100) | Mushroom strain name |
 | `Fecha_Inoculacion__c` | Date | Inoculation date |
 | `Estado__c` | Text(50) | Current batch status |
@@ -68,13 +76,13 @@ A lightweight virtual base class (`TriggerHandler`) that provides:
 ### How It Works
 
 ```
-LoteTrigger  →  new LoteHandler().run()  →  TriggerHandler.validateRun()
-                                                  ↓
-                                        routes to beforeInsert / afterUpdate / etc.
-                                                  ↓
-                                        LoteHandler.beforeInsert()
-                                                  ↓
-                                        LoteNombreService.generarNombre()
+LoteTrigger      →  new LoteHandler().run()    →  beforeInsert → LoteNombreService.generarNombre()
+                                                →  afterInsert  → LoteService.calcularEficiencia()
+                                                →  afterUpdate  → LoteService.calcularEficiencia()  (only if Peso_inicial_Kg__c changed)
+
+CosechaTrigger   →  new CosechaHandler().run() →  afterInsert  → LoteService.calcularEficiencia()
+                                                →  afterUpdate  → LoteService.calcularEficiencia()  (recalculates old + new parent)
+                                                →  afterDelete  → LoteService.calcularEficiencia()
 ```
 
 `validateRun()` blocks execution when:
@@ -105,7 +113,7 @@ TriggerHandler.clearAllBypasses();
 
 **Class:** `LoteNombreService.generarNombre(List<Lote__c>)`
 
-When a `Lote__c` record is inserted without a name, the system generates one automatically using the format:
+On every insert the system generates the name automatically using the format:
 
 ```
 [Cepa__c]-[Fecha_Inoculacion__c]
@@ -117,6 +125,31 @@ When a `Lote__c` record is inserted without a name, the system generates one aut
 - If `Fecha_Inoculacion__c` is null → uses today's date
 
 **Trigger event:** `before insert` via `LoteHandler.beforeInsert()`
+
+---
+
+### HU-02: Biological Efficiency Calculation
+
+**Class:** `LoteService.calcularEficiencia(Set<Id> loteIds)`
+
+Calculates and persists the biological efficiency of each batch:
+
+```
+Eficiencia_Biologica__c = (SUM(Cosecha__c.Peso_Kg__c) / Peso_inicial_Kg__c) * 100
+```
+
+**When it runs:**
+
+| Event | Trigger |
+|-------|---------|
+| `Lote__c` insert with `Peso_inicial_Kg__c` | `LoteHandler.afterInsert` — initializes to `0.00` |
+| `Lote__c` update and `Peso_inicial_Kg__c` changed | `LoteHandler.afterUpdate` — recalculates with existing harvests |
+| `Cosecha__c` insert / update / delete | `CosechaHandler.after*` — recalculates parent batch |
+| `Cosecha__c` update changes parent lookup | `CosechaHandler.afterUpdate` — recalculates both old and new parent |
+
+**Edge cases:**
+- `Peso_inicial_Kg__c` is null or `0` → `Eficiencia_Biologica__c` is set to `0` (prevents division by zero)
+- `Lote__c` inserted without `Peso_inicial_Kg__c` → field stays `null` until peso is set
 
 ---
 
@@ -140,7 +173,16 @@ sf project deploy start --source-dir force-app/main/default
 sf project deploy start --source-dir force-app/main/default/classes/TriggerHandler.cls \
     force-app/main/default/classes/LoteHandler.cls \
     force-app/main/default/classes/LoteNombreService.cls \
-    force-app/main/default/triggers/LoteTrigger.trigger
+    force-app/main/default/classes/LoteService.cls \
+    force-app/main/default/classes/CosechaHandler.cls \
+    force-app/main/default/triggers/LoteTrigger.trigger \
+    force-app/main/default/triggers/CosechaTrigger.trigger
+```
+
+### Run test suite
+
+```bash
+sf apex run test --suite-name igniafungi --result-format human --synchronous
 ```
 
 ---

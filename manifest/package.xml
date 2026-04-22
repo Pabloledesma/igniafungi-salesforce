@@ -9,5 +9,9 @@
         <members>igniafungi</members>
         <name>ApexTestSuite</name>
     </types>
+    <types>
+        <members>Igniafungi_Admin</members>
+        <name>PermissionSet</name>
+    </types>
     <version>66.0</version>
 </Package>

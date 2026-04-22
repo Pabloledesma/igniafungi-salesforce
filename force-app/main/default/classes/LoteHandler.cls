@@ -15,4 +15,28 @@ public with sharing class LoteHandler extends TriggerHandler {
     protected override void beforeInsert() {
         LoteNombreService.generarNombre(newList);
     }
+
+    protected override void afterInsert() {
+        Set<Id> loteIds = new Set<Id>();
+        for (Lote__c lote : newList) {
+            if (lote.Peso_inicial_Kg__c != null && lote.Peso_inicial_Kg__c > 0) {
+                loteIds.add(lote.Id);
+            }
+        }
+        if (!loteIds.isEmpty()) {
+            LoteService.calcularEficiencia(loteIds);
+        }
+    }
+
+    protected override void afterUpdate() {
+        Set<Id> changedIds = new Set<Id>();
+        for (Lote__c lote : newList) {
+            if (lote.Peso_inicial_Kg__c != oldMap.get(lote.Id).Peso_inicial_Kg__c) {
+                changedIds.add(lote.Id);
+            }
+        }
+        if (!changedIds.isEmpty()) {
+            LoteService.calcularEficiencia(changedIds);
+        }
+    }
 }

@@ -66,6 +66,48 @@ private class LoteTriggerTest {
         }
     }
 
+    // ── Eficiencia biológica en insert ────────────────────────────────────────
+
+    @IsTest
+    static void insertWithPesoInicial_initializesEficienciaToZero() {
+        Lote__c lote = new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE, Peso_inicial_Kg__c = 10);
+
+        Test.startTest();
+        insert lote;
+        Test.stopTest();
+
+        lote = [SELECT Eficiencia_Biologica__c FROM Lote__c WHERE Id = :lote.Id];
+        System.assertEquals(0, lote.Eficiencia_Biologica__c);
+    }
+
+    @IsTest
+    static void insertWithoutPesoInicial_eficienciaRemainsNull() {
+        Lote__c lote = new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE);
+
+        Test.startTest();
+        insert lote;
+        Test.stopTest();
+
+        lote = [SELECT Eficiencia_Biologica__c FROM Lote__c WHERE Id = :lote.Id];
+        System.assertEquals(null, lote.Eficiencia_Biologica__c);
+    }
+
+    // ── Eficiencia biológica en update ────────────────────────────────────────
+
+    @IsTest
+    static void updatePesoInicial_recalculatesEficiencia() {
+        Lote__c lote = new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE, Peso_inicial_Kg__c = 10);
+        insert lote;
+        insert new Cosecha__c(Lote__c = lote.Id, Peso_Kg__c = 5, Fecha_cosecha__c = TEST_DATE);
+
+        Test.startTest();
+        update new Lote__c(Id = lote.Id, Peso_inicial_Kg__c = 20);
+        Test.stopTest();
+
+        lote = [SELECT Eficiencia_Biologica__c FROM Lote__c WHERE Id = :lote.Id];
+        System.assertEquals(25.00, lote.Eficiencia_Biologica__c); // 5/20*100
+    }
+
     // ── Bypass ────────────────────────────────────────────────────────────────
 
     @IsTest
