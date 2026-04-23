@@ -1,18 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <!-- ── Apex ────────────────────────────────────────────────────────────── -->
     <types>
-        <members>Lote__c</members>
-        <members>Cosecha__c</members>
-        <members>Log_Proceso__c</members>
-        <name>CustomObject</name>
+        <members>ActualizarTotalesLoteQueueable</members>
+        <members>ActualizarTotalesLoteQueueableTest</members>
+        <members>ArchivarLotesViejos</members>
+        <members>ArchivarLotesViejosTest</members>
+        <members>CosechaHandler</members>
+        <members>CosechaTimelineController</members>
+        <members>CosechaTimelineControllerTest</members>
+        <members>CosechaTriggerTest</members>
+        <members>DashboardProduccionController</members>
+        <members>DashboardProduccionControllerTest</members>
+        <members>LoteActualizadoEventTest</members>
+        <members>LoteHandler</members>
+        <members>LoteNombreService</members>
+        <members>LoteNombreServiceTest</members>
+        <members>LoteResource</members>
+        <members>LoteResourceTest</members>
+        <members>LoteService</members>
+        <members>LoteServiceTest</members>
+        <members>LoteTriggerTest</members>
+        <members>RecalcularEficienciaBatch</members>
+        <members>RecalcularEficienciaBatchTest</members>
+        <members>RecalcularEficienciaScheduler</members>
+        <members>RecalcularEficienciaSchedulerTest</members>
+        <members>RegistrarCosechaController</members>
+        <members>RegistrarCosechaControllerTest</members>
+        <members>TriggerHandler</members>
+        <members>TriggerHandlerTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>CosechaTrigger</members>
+        <members>LoteTrigger</members>
+        <name>ApexTrigger</name>
     </types>
     <types>
         <members>igniafungi</members>
         <name>ApexTestSuite</name>
     </types>
+
+    <!-- ── Modelo de datos ─────────────────────────────────────────────────── -->
+    <types>
+        <members>Cosecha__c</members>
+        <members>Log_Proceso__c</members>
+        <members>Lote__c</members>
+        <members>LoteActualizado__e</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Cosecha__c.Fecha_cosecha__c</members>
+        <members>Cosecha__c.Ignia_ID__c</members>
+        <members>Cosecha__c.Lote__c</members>
+        <members>Cosecha__c.Notas__c</members>
+        <members>Cosecha__c.Peso_Kg__c</members>
+        <members>Log_Proceso__c.Estado__c</members>
+        <members>Log_Proceso__c.Fecha_Ejecucion__c</members>
+        <members>Log_Proceso__c.Job_Id__c</members>
+        <members>Log_Proceso__c.Registros_con_Error__c</members>
+        <members>Log_Proceso__c.Registros_Procesados__c</members>
+        <members>Log_Proceso__c.Tipo_Proceso__c</members>
+        <members>LoteActualizado__e.Cepa__c</members>
+        <members>LoteActualizado__e.Eficiencia_Biologica__c</members>
+        <members>LoteActualizado__e.Estado_Nuevo__c</members>
+        <members>LoteActualizado__e.Ignia_Id__c</members>
+        <members>LoteActualizado__e.Lote_Id__c</members>
+        <members>Lote__c.Archivado__c</members>
+        <members>Lote__c.Cantidad__c</members>
+        <members>Lote__c.Cantidad_Cosechas__c</members>
+        <members>Lote__c.Cepa__c</members>
+        <members>Lote__c.Codigo__c</members>
+        <members>Lote__c.Eficiencia_Biologica__c</members>
+        <members>Lote__c.Estado__c</members>
+        <members>Lote__c.Fecha_Inoculacion__c</members>
+        <members>Lote__c.Peso_inicial_Kg__c</members>
+        <members>Lote__c.Tipo__c</members>
+        <members>Lote__c.Total_Cosechado_Kg__c</members>
+        <members>Lote__c.ignia_id__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Cosecha__c.All</members>
+        <members>Lote__c.All</members>
+        <name>ListView</name>
+    </types>
+    <types>
+        <members>Lote__c.Fecha_Inoculacion_Futura</members>
+        <name>ValidationRule</name>
+    </types>
+
+    <!-- ── LWC e interfaz ─────────────────────────────────────────────────── -->
+    <types>
+        <members>cosechaTimeline</members>
+        <members>dashboardProduccion</members>
+        <members>loteCard</members>
+        <members>registrarCosecha</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>Igina_Home</members>
+        <members>IgniaFungi_UtilityBar</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>Cosecha__c-Cosecha Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>IgniaFungi</members>
+        <name>CustomApplication</name>
+    </types>
+
+    <!-- ── Seguridad e integración ────────────────────────────────────────── -->
     <types>
         <members>Igniafungi_Admin</members>
         <name>PermissionSet</name>
     </types>
+    <types>
+        <members>igniafungiwebhook</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
+        <members>igniafungiwebhook</members>
+        <name>NamedCredential</name>
+    </types>
+
     <version>66.0</version>
 </Package>
