@@ -481,6 +481,36 @@ client.subscribe('/event/LoteActualizado__e', (message) => {
 
 ---
 
+### HU-15: Named Credential — Ignia Fungi Webhook
+
+Configura el endpoint de Laravel como un destino de callout autenticado, sin exponer el token en el código.
+
+#### Componentes
+
+| Metadata | API Name | Propósito |
+|----------|----------|-----------|
+| `ExternalCredential` | `igniafungiwebhook` | Protocolo Custom Bearer token — el secreto vive en el vault de Salesforce |
+| `NamedCredential` | `igniafungiwebhook` | URL base `https://igniafungi.com` + referencia a la ExternalCredential |
+
+#### Uso en Apex (HU-16)
+
+```apex
+HttpRequest req = new HttpRequest();
+req.setEndpoint('callout:igniafungiwebhook/api/salesforce/webhook');
+req.setMethod('POST');
+// Salesforce inyecta el header Authorization: Bearer <token> automáticamente
+```
+
+#### Configuración post-deploy
+
+El token Bearer **no se almacena en metadata** (por seguridad). Después de desplegar en una nueva org hay que setearlo manualmente:
+
+1. Setup → Security → Named Credentials → **External Credentials**
+2. Abrir `Ignia Fungi Webhook` → sección **Principals**
+3. Agregar principal `IgniaWebhookPrincipal` con el token correspondiente al entorno
+
+---
+
 ## Deployment
 
 ### Retrieve metadata from org
