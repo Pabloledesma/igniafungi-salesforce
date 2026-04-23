@@ -439,6 +439,48 @@ All fields are optional. Only the fields present in the body are updated.
 
 ---
 
+### HU-14: Platform Event — LoteActualizado__e
+
+Publishes a real-time event whenever a `Lote__c` record changes `Estado__c`. Laravel subscribes via CometD and reacts without polling.
+
+#### Event object
+
+**API name:** `LoteActualizado__e` · Type: `StandardVolume`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Lote_Id__c` | Text(18) | Salesforce record ID |
+| `Ignia_Id__c` | Number(18,0) | Laravel internal ID (`ignia_id__c`) |
+| `Estado_Nuevo__c` | Text(50) | New value of `Estado__c` |
+| `Cepa__c` | Text(100) | Mushroom strain |
+| `Eficiencia_Biologica__c` | Number(8,2) | Biological efficiency at time of change |
+
+#### Flow
+
+1. `Lote__c` is updated (any DML).
+2. `LoteTrigger` fires → `LoteHandler.afterUpdate()`.
+3. Handler iterates `Trigger.new`, compares each record against `Trigger.oldMap`.
+4. For every record where `Estado__c` changed, a `LoteActualizado__e` event is added to a list.
+5. `EventBus.publish(events)` is called once for the whole batch.
+6. Laravel's CometD client receives the event on channel `/event/LoteActualizado__e`.
+
+#### Implementation notes
+
+- Publishing is skipped entirely when no state change is detected, avoiding unnecessary event bus calls.
+- `@TestVisible private static List<Database.SaveResult> publishResults` on `LoteHandler` exposes the publish outcome for unit tests without requiring a CometD subscriber.
+- Bulk-safe: one `EventBus.publish()` call for all events in the trigger batch.
+
+#### CometD subscription (Laravel side)
+
+```javascript
+client.subscribe('/event/LoteActualizado__e', (message) => {
+    const { Lote_Id__c, Ignia_Id__c, Estado_Nuevo__c } = message.data.payload;
+    // update local state, send webhook, etc.
+});
+```
+
+---
+
 ## Deployment
 
 ### Retrieve metadata from org

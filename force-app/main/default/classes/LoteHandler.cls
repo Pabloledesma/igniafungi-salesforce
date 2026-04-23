@@ -28,15 +28,36 @@ public with sharing class LoteHandler extends TriggerHandler {
         }
     }
 
+    @TestVisible private static List<Database.SaveResult> publishResults;
+
     protected override void afterUpdate() {
-        Set<Id> changedIds = new Set<Id>();
+        Set<Id> recalcIds = new Set<Id>();
+        List<LoteActualizado__e> events = new List<LoteActualizado__e>();
+
         for (Lote__c lote : newList) {
-            if (lote.Peso_inicial_Kg__c != oldMap.get(lote.Id).Peso_inicial_Kg__c) {
-                changedIds.add(lote.Id);
+            Lote__c old = oldMap.get(lote.Id);
+
+            if (lote.Peso_inicial_Kg__c != old.Peso_inicial_Kg__c) {
+                recalcIds.add(lote.Id);
+            }
+
+            if (lote.Estado__c != old.Estado__c) {
+                events.add(new LoteActualizado__e(
+                    Lote_Id__c              = lote.Id,
+                    Ignia_Id__c             = lote.ignia_id__c,
+                    Estado_Nuevo__c         = lote.Estado__c,
+                    Cepa__c                 = lote.Cepa__c,
+                    Eficiencia_Biologica__c = lote.Eficiencia_Biologica__c
+                ));
             }
         }
-        if (!changedIds.isEmpty()) {
-            LoteService.calcularEficiencia(changedIds);
+
+        if (!recalcIds.isEmpty()) {
+            LoteService.calcularEficiencia(recalcIds);
+        }
+
+        if (!events.isEmpty()) {
+            publishResults = EventBus.publish(events);
         }
     }
 }

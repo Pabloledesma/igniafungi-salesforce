@@ -5,6 +5,7 @@
     <testClassName>CosechaTimelineControllerTest</testClassName>
     <testClassName>CosechaTriggerTest</testClassName>
     <testClassName>DashboardProduccionControllerTest</testClassName>
+    <testClassName>LoteActualizadoEventTest</testClassName>
     <testClassName>LoteNombreServiceTest</testClassName>
     <testClassName>LoteResourceTest</testClassName>
     <testClassName>LoteServiceTest</testClassName>
