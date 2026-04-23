@@ -14,32 +14,29 @@ public with sharing class LoteHandler extends TriggerHandler {
 
     protected override void beforeInsert() {
         LoteNombreService.generarNombre(newList);
+        LoteService.calcularEficiencia(newList);
     }
 
-    protected override void afterInsert() {
-        Set<Id> loteIds = new Set<Id>();
+    protected override void beforeUpdate() {
+        List<Lote__c> recalcList = new List<Lote__c>();
         for (Lote__c lote : newList) {
-            if (lote.Peso_inicial_Kg__c != null && lote.Peso_inicial_Kg__c > 0) {
-                loteIds.add(lote.Id);
+            Lote__c old = oldMap.get(lote.Id);
+            if (lote.Peso_inicial_Kg__c != old.Peso_inicial_Kg__c || lote.Total_Cosechado_Kg__c != old.Total_Cosechado_Kg__c) {
+                recalcList.add(lote);
             }
         }
-        if (!loteIds.isEmpty()) {
-            LoteService.calcularEficiencia(loteIds);
+        if (!recalcList.isEmpty()) {
+            LoteService.calcularEficiencia(recalcList);
         }
     }
 
     @TestVisible private static List<Database.SaveResult> publishResults;
 
     protected override void afterUpdate() {
-        Set<Id> recalcIds = new Set<Id>();
         List<LoteActualizado__e> events = new List<LoteActualizado__e>();
 
         for (Lote__c lote : newList) {
             Lote__c old = oldMap.get(lote.Id);
-
-            if (lote.Peso_inicial_Kg__c != old.Peso_inicial_Kg__c) {
-                recalcIds.add(lote.Id);
-            }
 
             if (lote.Estado__c != old.Estado__c && !System.isBatch()) {
                 events.add(new LoteActualizado__e(
@@ -50,10 +47,6 @@ public with sharing class LoteHandler extends TriggerHandler {
                     Eficiencia_Biologica__c = lote.Eficiencia_Biologica__c
                 ));
             }
-        }
-
-        if (!recalcIds.isEmpty()) {
-            LoteService.calcularEficiencia(recalcIds);
         }
 
         if (!events.isEmpty()) {

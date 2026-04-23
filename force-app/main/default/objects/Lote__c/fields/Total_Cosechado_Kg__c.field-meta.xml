@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Cosechado_Kg__c</fullName>
-    <description>Suma del peso (kg) de todas las cosechas del lote. Actualizado asincrónicamente por ActualizarTotalesLoteQueueable.</description>
+    <description>Suma del peso (kg) de todas las cosechas del lote.</description>
     <label>Total Cosechado Kg</label>
-    <precision>12</precision>
-    <scale>4</scale>
+    <summarizedField>Cosecha__c.Peso_Kg__c</summarizedField>
+    <summaryForeignKey>Cosecha__c.Lote__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
+    <type>Summary</type>
 </CustomField>

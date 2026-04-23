@@ -60,8 +60,9 @@ Represents a single mushroom cultivation batch from inoculation to harvest.
 | `Fecha_Inoculacion__c` | Date | Inoculation date |
 | `Estado__c` | Picklist | Batch lifecycle status: `En Inoculación` · `En Colonización` · `En Producción` · `Finalizado` · `Archivado` |
 | `Archivado__c` | Checkbox | `true` when the batch has been archived by the `ArchivarLotesViejos` batch |
-| `Total_Cosechado_Kg__c` | Number(12,4) | Sum of all harvest weights in kg — updated asynchronously by `ActualizarTotalesLoteQueueable` |
-| `Cantidad_Cosechas__c` | Number(10,0) | Count of harvest records — updated asynchronously by `ActualizarTotalesLoteQueueable` |
+| `Total_Cosechado_Kg__c` | Roll-Up Summary | `SUM(Cosecha__c.Peso_Kg__c)` — maintained automatically by Salesforce via Master-Detail |
+| `Cantidad_Cosechas__c` | Roll-Up Summary | `COUNT(Cosecha__c)` — maintained automatically by Salesforce via Master-Detail |
+| `Fecha_Ultima_Cosecha__c` | Roll-Up Summary | `MAX(Cosecha__c.Fecha_cosecha__c)` — maintained automatically by Salesforce via Master-Detail |
 | `Tipo__c` | Text(20) | Batch type |
 | `Codigo__c` | Text(50) | Internal batch code |
 | `Peso_inicial_Kg__c` | Number(8,4) | Initial substrate weight in kg |
@@ -74,7 +75,7 @@ Records individual harvest events linked to a batch.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `Lote__c` | Lookup(Lote__c) | Parent batch |
+| `Lote__c` | Master-Detail(Lote__c) | Parent batch — deleting a Lote__c cascades to its harvests |
 | `Peso_Kg__c` | Number | Harvested weight in kg |
 | `Fecha_cosecha__c` | Date | Harvest date |
 | `Notas__c` | Text | Operator notes |
@@ -96,12 +97,12 @@ A lightweight virtual base class (`TriggerHandler`) that provides:
 
 ```
 LoteTrigger      →  new LoteHandler().run()    →  beforeInsert → LoteNombreService.generarNombre()
-                                                →  afterInsert  → LoteService.calcularEficiencia()
-                                                →  afterUpdate  → LoteService.calcularEficiencia()  (only if Peso_inicial_Kg__c changed)
+                                                               → LoteService.calcularEficiencia()
+                                                →  beforeUpdate → LoteService.calcularEficiencia()  (only if Peso_inicial_Kg__c or Total_Cosechado_Kg__c changed)
+                                                →  afterUpdate  → EventBus.publish(LoteActualizado__e)  (only if Estado__c changed and not in batch)
 
-CosechaTrigger   →  new CosechaHandler().run() →  afterInsert  → LoteService.calcularEficiencia()
-                                                →  afterUpdate  → LoteService.calcularEficiencia()  (recalculates old + new parent)
-                                                →  afterDelete  → LoteService.calcularEficiencia()
+CosechaTrigger   →  new CosechaHandler().run() →  (no direct logic — Roll-Up Summary fields on Lote__c
+                                                    recalculate automatically and fire LoteHandler.beforeUpdate)
 ```
 
 `validateRun()` blocks execution when:
@@ -149,26 +150,29 @@ On every insert the system generates the name automatically using the format:
 
 ### HU-02: Biological Efficiency Calculation
 
-**Class:** `LoteService.calcularEficiencia(Set<Id> loteIds)`
+**Class:** `LoteService.calcularEficiencia(List<Lote__c> lotes)`
 
-Calculates and persists the biological efficiency of each batch:
+Calculates biological efficiency in-memory (no SOQL, no DML) for a list of lotes and writes the result back to the same objects:
 
 ```
-Eficiencia_Biologica__c = (SUM(Cosecha__c.Peso_Kg__c) / Peso_inicial_Kg__c) * 100
+Eficiencia_Biologica__c = (Total_Cosechado_Kg__c / Peso_inicial_Kg__c) * 100
 ```
+
+`Total_Cosechado_Kg__c` is a Roll-Up Summary (`SUM Cosecha__c.Peso_Kg__c`) maintained automatically by Salesforce. Callers receive lotes from the trigger context or a SOQL query, so the field value is always current when the service is invoked.
 
 **When it runs:**
 
-| Event | Trigger |
-|-------|---------|
-| `Lote__c` insert with `Peso_inicial_Kg__c` | `LoteHandler.afterInsert` — initializes to `0.00` |
-| `Lote__c` update and `Peso_inicial_Kg__c` changed | `LoteHandler.afterUpdate` — recalculates with existing harvests |
-| `Cosecha__c` insert / update / delete | `CosechaHandler.after*` — recalculates parent batch |
-| `Cosecha__c` update changes parent lookup | `CosechaHandler.afterUpdate` — recalculates both old and new parent |
+| Event | Handler method | Condition |
+|-------|---------------|-----------|
+| `Lote__c` insert | `LoteHandler.beforeInsert` | All lotes (initializes to `0` when no harvests exist) |
+| `Lote__c` update | `LoteHandler.beforeUpdate` | Only when `Peso_inicial_Kg__c` or `Total_Cosechado_Kg__c` changed |
+| `Cosecha__c` insert / update / delete | Roll-Up Summary recalculates `Total_Cosechado_Kg__c` → fires `LoteHandler.beforeUpdate` | Handled transparently |
+| Nightly batch | `RecalcularEficienciaBatch.execute()` | All non-archived lotes |
 
 **Edge cases:**
 - `Peso_inicial_Kg__c` is null or `0` → `Eficiencia_Biologica__c` is set to `0` (prevents division by zero)
-- `Lote__c` inserted without `Peso_inicial_Kg__c` → field stays `null` until peso is set
+- `Total_Cosechado_Kg__c` is null → `Eficiencia_Biologica__c` is set to `0`
+- `Lote__c` inserted without `Peso_inicial_Kg__c` → `Eficiencia_Biologica__c` initializes to `0`
 
 ---
 
@@ -219,29 +223,24 @@ One record is created per batch run in `finish()`:
 | `Estado__c` | Picklist | `Exitoso` / `Con Errores` |
 | `Job_Id__c` | Text(18) | Salesforce `AsyncApexJob` ID |
 
-### HU-08: Async Harvest Totals Update
+### HU-08: Harvest Totals on `Lote__c` *(superseded by Roll-Up Summary fields)*
 
-**Class:** `ActualizarTotalesLoteQueueable`
+`ActualizarTotalesLoteQueueable` was removed. The three summary fields on `Lote__c` are now **Roll-Up Summary** fields maintained declaratively by Salesforce via the Master-Detail relationship with `Cosecha__c`:
 
-Queueable Apex job that updates two summary fields on `Lote__c` after a harvest is recorded. Because the aggregation runs in a separate transaction, the cosecha insert completes immediately and the totals are consistent without consuming the trigger's governor limits.
+| Field | Roll-Up type | Source field |
+|-------|-------------|--------------|
+| `Total_Cosechado_Kg__c` | SUM | `Cosecha__c.Peso_Kg__c` |
+| `Cantidad_Cosechas__c` | COUNT | — |
+| `Fecha_Ultima_Cosecha__c` | MAX | `Cosecha__c.Fecha_cosecha__c` |
 
-**Fields updated:**
-
-| Field | Calculation |
-|-------|-------------|
-| `Total_Cosechado_Kg__c` | `SUM(Cosecha__c.Peso_Kg__c)` |
-| `Cantidad_Cosechas__c` | `COUNT(Cosecha__c)` |
-
-**When it runs:** `CosechaHandler.afterInsert` enqueues the job after the synchronous `LoteService.calcularEficiencia()` call.
+Salesforce recalculates these fields synchronously after any insert, update, or delete of a `Cosecha__c` record. When the Roll-Up Summary changes, Salesforce fires `Lote__c` before/after update triggers — which is how `LoteHandler.beforeUpdate` detects that `Total_Cosechado_Kg__c` changed and recalculates `Eficiencia_Biologica__c`.
 
 ```
-Cosecha__c insert
-  └─ CosechaHandler.afterInsert
-        ├─ LoteService.calcularEficiencia()          ← sync, updates Eficiencia_Biologica__c
-        └─ System.enqueueJob(ActualizarTotalesLoteQueueable)  ← async, updates totals
+Cosecha__c insert / update / delete
+  └─ Roll-Up Summary recalculates Total_Cosechado_Kg__c on Lote__c
+        └─ LoteHandler.beforeUpdate fires
+              └─ LoteService.calcularEficiencia()  ← updates Eficiencia_Biologica__c
 ```
-
-The job is not enqueued when the trigger fires from within a batch context (`System.isBatch()`), since batch jobs cannot enqueue Queueable jobs.
 
 ---
 
@@ -249,11 +248,13 @@ The job is not enqueued when the trigger fires from within a batch context (`Sys
 
 **Class:** `ArchivarLotesViejos`
 
-Batch Apex job that marks old, inactive lotes as archived. A lote is archived when all of the following are true:
+Batch Apex job that marks old, inactive lotes as archived. A lote is archived when `Archivado__c = false`, `Estado__c != 'Archivado'`, and at least one of:
 
-- `Archivado__c = false` and `Estado__c != 'Archivado'`
-- Created more than **180 days** ago
-- Has **no `Cosecha__c` records** with `Fecha_cosecha__c` within the last 180 days
+| Condition | Field used | Threshold |
+|-----------|-----------|-----------|
+| Too many harvests | `Cantidad_Cosechas__c > 3` | Roll-Up COUNT |
+| Last harvest too old and no primordia | `Fecha_Ultima_Cosecha__c < 20 days ago AND Hay_Primordios__c = false` | Roll-Up MAX |
+| No harvests and record is old | `Cantidad_Cosechas__c = 0 AND CreatedDate < 180 days ago` | Roll-Up COUNT |
 
 ```apex
 // Run manually

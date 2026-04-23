@@ -1,125 +1,77 @@
 @IsTest
 private class LoteServiceTest {
 
-    private static final Date TEST_DATE = Date.newInstance(2026, 4, 1);
-
-    @TestSetup
-    static void setup() {
-        insert new Lote__c(
-            Cepa__c = 'Shiitake',
-            Fecha_Inoculacion__c = TEST_DATE,
-            Peso_inicial_Kg__c = 10
-        );
-    }
-
-    private static Lote__c getLote() {
-        return [SELECT Id, Peso_inicial_Kg__c, Eficiencia_Biologica__c FROM Lote__c LIMIT 1];
+    // Crea un Lote__c en memoria con Total_Cosechado_Kg__c (Roll-Up Summary, read-only).
+    // JSON.deserialize permite fijar campos calculados sin DML.
+    private static Lote__c loteConTotal(Decimal pesoInicial, Decimal totalCosechado) {
+        String payload = '{"Peso_inicial_Kg__c":' + (pesoInicial == null ? 'null' : String.valueOf(pesoInicial))
+                       + ',"Total_Cosechado_Kg__c":' + (totalCosechado == null ? 'null' : String.valueOf(totalCosechado))
+                       + '}';
+        return (Lote__c) JSON.deserialize(payload, Lote__c.class);
     }
 
     // ── Cálculo básico ────────────────────────────────────────────────────────
 
     @IsTest
-    static void withNoCosechas_setsEficienciaToZero() {
-        Lote__c lote = getLote();
-
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ lote.Id });
-        Test.stopTest();
-
-        lote = getLote();
-        System.assertEquals(0, lote.Eficiencia_Biologica__c);
+    static void conTotalYPeso_calculaEficienciaCorrecta() {
+        Lote__c lote = loteConTotal(10, 5);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(50.00, lote.Eficiencia_Biologica__c);
     }
 
     @IsTest
-    static void withOneCosecha_calculatesCorrectPercentage() {
-        Lote__c lote = getLote();
-        insert new Cosecha__c(Lote__c = lote.Id, Peso_Kg__c = 5, Fecha_cosecha__c = TEST_DATE);
-
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ lote.Id });
-        Test.stopTest();
-
-        lote = getLote();
-        System.assertEquals(50.00, lote.Eficiencia_Biologica__c);
+    static void conTotalIgualAlPeso_retorna100() {
+        Lote__c lote = loteConTotal(8, 8);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(100.00, lote.Eficiencia_Biologica__c);
     }
 
     @IsTest
-    static void withMultipleCosechas_sumsBeforeCalculating() {
-        Lote__c lote = getLote();
-        insert new List<Cosecha__c>{
-            new Cosecha__c(Lote__c = lote.Id, Peso_Kg__c = 3, Fecha_cosecha__c = TEST_DATE),
-            new Cosecha__c(Lote__c = lote.Id, Peso_Kg__c = 4, Fecha_cosecha__c = TEST_DATE)
-        };
-
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ lote.Id });
-        Test.stopTest();
-
-        lote = getLote();
-        System.assertEquals(70.00, lote.Eficiencia_Biologica__c); // (3+4)/10*100
+    static void resultado_seRedondea2Decimales() {
+        Lote__c lote = loteConTotal(3, 1);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(33.33, lote.Eficiencia_Biologica__c); // 1/3*100 = 33.333...
     }
 
     // ── Protección división por cero ──────────────────────────────────────────
 
     @IsTest
-    static void withNullPesoInicial_setsEficienciaToZero() {
-        Lote__c lote2 = new Lote__c(Cepa__c = 'Ostra', Fecha_Inoculacion__c = TEST_DATE);
-        TriggerHandler.bypass('LoteHandler');
-        insert lote2;
-        TriggerHandler.clearBypass('LoteHandler');
-
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ lote2.Id });
-        Test.stopTest();
-
-        lote2 = [SELECT Eficiencia_Biologica__c FROM Lote__c WHERE Id = :lote2.Id];
-        System.assertEquals(0, lote2.Eficiencia_Biologica__c);
+    static void conPesoInicialNulo_poneEficienciaEnCero() {
+        Lote__c lote = loteConTotal(null, 5);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(0, lote.Eficiencia_Biologica__c);
     }
 
     @IsTest
-    static void withZeroPesoInicial_setsEficienciaToZero() {
-        Lote__c lote = getLote();
-        TriggerHandler.bypass('LoteHandler');
-        update new Lote__c(Id = lote.Id, Peso_inicial_Kg__c = 0);
-        TriggerHandler.clearBypass('LoteHandler');
+    static void conPesoInicialCero_poneEficienciaEnCero() {
+        Lote__c lote = loteConTotal(0, 5);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(0, lote.Eficiencia_Biologica__c);
+    }
 
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ lote.Id });
-        Test.stopTest();
-
-        lote = getLote();
-        System.assertEquals(0, lote.Eficiencia_Biologica__c);
+    @IsTest
+    static void conTotalCosechadoNulo_poneEficienciaEnCero() {
+        Lote__c lote = loteConTotal(10, null);
+        LoteService.calcularEficiencia(new List<Lote__c>{ lote });
+        Assert.areEqual(0, lote.Eficiencia_Biologica__c);
     }
 
     // ── Bulk ──────────────────────────────────────────────────────────────────
 
     @IsTest
-    static void withMultipleLotes_calculatesEachIndependently() {
-        Lote__c loteA = getLote();
-        Lote__c loteB = new Lote__c(Cepa__c = 'Ostra', Fecha_Inoculacion__c = TEST_DATE, Peso_inicial_Kg__c = 20);
-        insert loteB;
-
-        insert new List<Cosecha__c>{
-            new Cosecha__c(Lote__c = loteA.Id, Peso_Kg__c = 5,  Fecha_cosecha__c = TEST_DATE),
-            new Cosecha__c(Lote__c = loteB.Id, Peso_Kg__c = 8, Fecha_cosecha__c = TEST_DATE)
-        };
-
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>{ loteA.Id, loteB.Id });
-        Test.stopTest();
-
-        Map<Id, Lote__c> result = new Map<Id, Lote__c>([
-            SELECT Id, Eficiencia_Biologica__c FROM Lote__c WHERE Id IN :new Set<Id>{ loteA.Id, loteB.Id }
-        ]);
-        System.assertEquals(50.00, result.get(loteA.Id).Eficiencia_Biologica__c); // 5/10*100
-        System.assertEquals(40.00, result.get(loteB.Id).Eficiencia_Biologica__c); // 8/20*100
+    static void variosLotes_calculaCadaUnoIndependientemente() {
+        Lote__c loteA = loteConTotal(10, 5);
+        Lote__c loteB = loteConTotal(20, 8);
+        Lote__c loteC = loteConTotal(null, 3);
+        LoteService.calcularEficiencia(new List<Lote__c>{ loteA, loteB, loteC });
+        Assert.areEqual(50.00, loteA.Eficiencia_Biologica__c);
+        Assert.areEqual(40.00, loteB.Eficiencia_Biologica__c);
+        Assert.areEqual(0,     loteC.Eficiencia_Biologica__c);
     }
 
     @IsTest
-    static void withEmptySet_doesNothing() {
-        Test.startTest();
-        LoteService.calcularEficiencia(new Set<Id>());
-        Test.stopTest();
-        System.assert(true, 'Should handle empty set without exception');
+    static void listaVacia_noLanzaExcepcion() {
+        LoteService.calcularEficiencia(new List<Lote__c>());
+        Assert.isTrue(true);
     }
 }

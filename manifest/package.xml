@@ -3,8 +3,6 @@
 
     <!-- ── Apex ────────────────────────────────────────────────────────────── -->
     <types>
-        <members>ActualizarTotalesLoteQueueable</members>
-        <members>ActualizarTotalesLoteQueueableTest</members>
         <members>ArchivarLotesViejos</members>
         <members>ArchivarLotesViejosTest</members>
         <members>CosechaHandler</members>

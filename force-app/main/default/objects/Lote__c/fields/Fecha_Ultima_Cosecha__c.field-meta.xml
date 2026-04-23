@@ -3,7 +3,9 @@
     <fullName>Fecha_Ultima_Cosecha__c</fullName>
     <description>Fecha de la última cosecha registrada para este lote.</description>
     <label>Fecha de Última Cosecha</label>
-    <required>false</required>
+    <summarizedField>Cosecha__c.Fecha_cosecha__c</summarizedField>
+    <summaryForeignKey>Cosecha__c.Lote__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
     <trackTrending>false</trackTrending>
-    <type>Date</type>
+    <type>Summary</type>
 </CustomField>

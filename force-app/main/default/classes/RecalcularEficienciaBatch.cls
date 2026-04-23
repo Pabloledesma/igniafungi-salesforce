@@ -5,7 +5,7 @@ public class RecalcularEficienciaBatch implements Database.Batchable<SObject>, D
 
     public Database.QueryLocator start(Database.BatchableContext bc) {
         return Database.getQueryLocator([
-            SELECT Id
+            SELECT Id, Peso_inicial_Kg__c, Total_Cosechado_Kg__c
             FROM Lote__c
             WHERE Estado__c != 'Archivado'
         ]);
@@ -13,8 +13,10 @@ public class RecalcularEficienciaBatch implements Database.Batchable<SObject>, D
 
     public void execute(Database.BatchableContext bc, List<SObject> scope) {
         try {
-            LoteService.calcularEficiencia(new Map<Id, SObject>(scope).keySet());
-            totalProcesados += scope.size();
+            List<Lote__c> lotes = (List<Lote__c>) scope;
+            LoteService.calcularEficiencia(lotes);
+            update lotes;
+            totalProcesados += lotes.size();
         } catch (Exception e) {
             totalErrores += scope.size();
         }

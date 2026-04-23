@@ -50,27 +50,6 @@ private class CosechaTriggerTest {
         System.assertEquals(80.00, lote.Eficiencia_Biologica__c); // 8/10*100
     }
 
-    @IsTest
-    static void updateCosechaLote_recalculatesBothParents() {
-        Map<String, Lote__c> lotes = getLotesByCepa();
-        Lote__c loteA = lotes.get('Shiitake'); // peso 10
-        Lote__c loteB = lotes.get('Ostra');    // peso 20
-
-        Cosecha__c cosecha = new Cosecha__c(Lote__c = loteA.Id, Peso_Kg__c = 5, Fecha_cosecha__c = TEST_DATE);
-        insert cosecha;
-
-        Test.startTest();
-        cosecha.Lote__c = loteB.Id;
-        update cosecha;
-        Test.stopTest();
-
-        Map<Id, Lote__c> result = new Map<Id, Lote__c>([
-            SELECT Id, Eficiencia_Biologica__c FROM Lote__c WHERE Id IN :new Set<Id>{ loteA.Id, loteB.Id }
-        ]);
-        System.assertEquals(0.00,  result.get(loteA.Id).Eficiencia_Biologica__c); // cosecha migró
-        System.assertEquals(25.00, result.get(loteB.Id).Eficiencia_Biologica__c); // 5/20*100
-    }
-
     // ── After delete ──────────────────────────────────────────────────────────
 
     @IsTest

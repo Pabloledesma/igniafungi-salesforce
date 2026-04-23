@@ -67,7 +67,7 @@ private class RecalcularEficienciaBatchTest {
     static void batchCounters_reflectProcessedAndErrorTotals() {
         // Call execute() directly so the counter state is on the same instance
         RecalcularEficienciaBatch batchInstance = new RecalcularEficienciaBatch();
-        List<SObject> scope = [SELECT Id FROM Lote__c WHERE Estado__c != 'Archivado'];
+        List<SObject> scope = [SELECT Id, Peso_inicial_Kg__c, Total_Cosechado_Kg__c FROM Lote__c WHERE Estado__c != 'Archivado'];
 
         Test.startTest();
         batchInstance.execute(null, scope);

@@ -17,13 +17,20 @@ private class ArchivarLotesViejosTest {
         return lote;
     }
 
+    private static void insertarCosechas(Id loteId, Integer cantidad, Date fecha) {
+        List<Cosecha__c> cosechas = new List<Cosecha__c>();
+        for (Integer i = 0; i < cantidad; i++) {
+            cosechas.add(new Cosecha__c(Lote__c = loteId, Peso_Kg__c = 1, Fecha_cosecha__c = fecha));
+        }
+        insert cosechas;
+    }
+
     // ── Archivado correcto ────────────────────────────────────────────────────
 
     @IsTest
     static void loteCon4Cosechas_esArchivado() {
         Lote__c lote = crearLote('Shiitake', false);
-        lote.Cantidad_Cosechas__c = 4;
-        update lote;
+        insertarCosechas(lote.Id, 4, HOY);
 
         Test.setMock(HttpCalloutMock.class, new WebhookMock());
 
@@ -39,9 +46,7 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteConCosechaVieja_sinPrimordios_esArchivado() {
         Lote__c lote = crearLote('Ostra', false);
-        lote.Cantidad_Cosechas__c = 1;
-        lote.Fecha_Ultima_Cosecha__c = HACE_25_DIAS;
-        update lote;
+        insertarCosechas(lote.Id, 1, HACE_25_DIAS);
 
         Test.setMock(HttpCalloutMock.class, new WebhookMock());
 
@@ -56,10 +61,8 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteSinCosechas_masDe180Dias_esArchivado() {
         Lote__c lote = crearLote('Shiitake', false);
-        lote.Cantidad_Cosechas__c = 0;
-        update lote;
         Test.setCreatedDate(lote.Id, Datetime.now().addDays(-190));
-        
+
         Test.setMock(HttpCalloutMock.class, new WebhookMock());
 
         Test.startTest();
@@ -75,10 +78,9 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteConCosechaVieja_conPrimordios_noEsArchivado() {
         Lote__c lote = crearLote('Maitake', true);
-        lote.Cantidad_Cosechas__c = 1;
-        lote.Fecha_Ultima_Cosecha__c = HACE_25_DIAS;
-        update lote;
+        insertarCosechas(lote.Id, 1, HACE_25_DIAS);
 
+        Test.setMock(HttpCalloutMock.class, new WebhookMock());
         Test.startTest();
         Database.executeBatch(new ArchivarLotesViejos(), 200);
         Test.stopTest();
@@ -90,10 +92,9 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteConCosechaReciente_noEsArchivado() {
         Lote__c lote = crearLote('Maitake', false);
-        lote.Cantidad_Cosechas__c = 1;
-        lote.Fecha_Ultima_Cosecha__c = HACE_10_DIAS;
-        update lote;
+        insertarCosechas(lote.Id, 1, HACE_10_DIAS);
 
+        Test.setMock(HttpCalloutMock.class, new WebhookMock());
         Test.startTest();
         Database.executeBatch(new ArchivarLotesViejos(), 200);
         Test.stopTest();
@@ -105,9 +106,8 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteNuevo_sinCosechas_noEsArchivado() {
         Lote__c lote = crearLote('Enoki', false);
-        lote.Cantidad_Cosechas__c = 0;
-        update lote;
 
+        Test.setMock(HttpCalloutMock.class, new WebhookMock());
         Test.startTest();
         Database.executeBatch(new ArchivarLotesViejos(), 200);
         Test.stopTest();
@@ -119,9 +119,8 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void loteYaArchivado_noEsReprocesado() {
         Lote__c lote = crearLote('Reishi', false);
-        lote.Cantidad_Cosechas__c = 4;
-        update lote;
-        
+        insertarCosechas(lote.Id, 4, HOY);
+
         TriggerHandler.bypass('LoteHandler');
         update new Lote__c(Id = lote.Id, Archivado__c = true, Estado__c = 'Archivado');
         TriggerHandler.clearBypass('LoteHandler');
@@ -140,8 +139,7 @@ private class ArchivarLotesViejosTest {
     @IsTest
     static void execute_actualizaTotalArchivados() {
         Lote__c lote = crearLote('Portobello', false);
-        lote.Cantidad_Cosechas__c = 4;
-        update lote;
+        insertarCosechas(lote.Id, 4, HOY);
 
         ArchivarLotesViejos batchInstance = new ArchivarLotesViejos();
         List<SObject> scope = [SELECT Id FROM Lote__c WHERE Id = :lote.Id];

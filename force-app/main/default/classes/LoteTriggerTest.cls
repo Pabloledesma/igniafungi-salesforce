@@ -81,7 +81,7 @@ private class LoteTriggerTest {
     }
 
     @IsTest
-    static void insertWithoutPesoInicial_eficienciaRemainsNull() {
+    static void insertWithoutPesoInicial_eficienciaIsZero() {
         Lote__c lote = new Lote__c(Cepa__c = 'Shiitake', Fecha_Inoculacion__c = TEST_DATE);
 
         Test.startTest();
@@ -89,7 +89,7 @@ private class LoteTriggerTest {
         Test.stopTest();
 
         lote = [SELECT Eficiencia_Biologica__c FROM Lote__c WHERE Id = :lote.Id];
-        System.assertEquals(null, lote.Eficiencia_Biologica__c);
+        System.assertEquals(0, lote.Eficiencia_Biologica__c);
     }
 
     // ── Eficiencia biológica en update ────────────────────────────────────────
