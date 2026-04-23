@@ -511,6 +511,38 @@ El token Bearer **no se almacena en metadata** (por seguridad). Después de desp
 
 ---
 
+### HU-16: Apex Callout — Notificación Masiva (Webhook)
+
+**Clase:** `LaravelWebhookService` (Queueable)
+
+Realiza un *Callout* en bloque a Laravel cuando el Batch `ArchivarLotesViejos` (HU-07) procesa los lotes viejos. Esto asegura que la base de datos local de Laravel se actualice de forma masiva y eficiente, sin saturar los límites de los *Platform Events*.
+
+#### Flow
+
+1. `ArchivarLotesViejos.execute()` identifica los lotes inactivos y les cambia el estado a `Archivado`.
+2. Llama a `LaravelWebhookService.notificarLotesArchivados(ids)`.
+3. Se pone en cola el Queueable `LaravelWebhookService`, el cual construye un *Payload* con el array de los IDs de todos los lotes modificados en ese *chunk* del Batch.
+4. Se hace el *POST* a `/api/salesforce/webhook` utilizando la Named Credential de la HU-15.
+5. El Trigger `LoteHandler` no emite el evento de la HU-14, puesto que cuenta con una validación `!System.isBatch()`, evitando redundancias de notificaciones.
+
+#### Payload enviado a Laravel
+
+```json
+{
+  "event": "lotes.archivados",
+  "lotes": [
+    {
+      "loteId": "a00g800000abc12AAA",
+      "igniaId": 123,
+      "nombre": "Shiitake-2025-10-15",
+      "cepa": "Shiitake"
+    }
+  ]
+}
+```
+
+---
+
 ## Deployment
 
 ### Retrieve metadata from org

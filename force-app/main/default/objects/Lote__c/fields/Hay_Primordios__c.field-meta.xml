@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hay_Primordios__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica si el lote presenta signos de primordios.</description>
+    <label>Hay Primordios</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

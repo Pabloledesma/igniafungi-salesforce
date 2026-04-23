@@ -41,7 +41,7 @@ public with sharing class LoteHandler extends TriggerHandler {
                 recalcIds.add(lote.Id);
             }
 
-            if (lote.Estado__c != old.Estado__c) {
+            if (lote.Estado__c != old.Estado__c && !System.isBatch()) {
                 events.add(new LoteActualizado__e(
                     Lote_Id__c              = lote.Id,
                     Ignia_Id__c             = lote.ignia_id__c,

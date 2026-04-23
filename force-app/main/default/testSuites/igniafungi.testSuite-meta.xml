@@ -5,6 +5,7 @@
     <testClassName>CosechaTimelineControllerTest</testClassName>
     <testClassName>CosechaTriggerTest</testClassName>
     <testClassName>DashboardProduccionControllerTest</testClassName>
+    <testClassName>LaravelWebhookServiceTest</testClassName>
     <testClassName>LoteActualizadoEventTest</testClassName>
     <testClassName>LoteNombreServiceTest</testClassName>
     <testClassName>LoteResourceTest</testClassName>

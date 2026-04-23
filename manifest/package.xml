@@ -13,6 +13,8 @@
         <members>CosechaTriggerTest</members>
         <members>DashboardProduccionController</members>
         <members>DashboardProduccionControllerTest</members>
+        <members>LaravelWebhookService</members>
+        <members>LaravelWebhookServiceTest</members>
         <members>LoteActualizadoEventTest</members>
         <members>LoteHandler</members>
         <members>LoteNombreService</members>
@@ -75,6 +77,8 @@
         <members>Lote__c.Eficiencia_Biologica__c</members>
         <members>Lote__c.Estado__c</members>
         <members>Lote__c.Fecha_Inoculacion__c</members>
+        <members>Lote__c.Fecha_Ultima_Cosecha__c</members>
+        <members>Lote__c.Hay_Primordios__c</members>
         <members>Lote__c.Peso_inicial_Kg__c</members>
         <members>Lote__c.Tipo__c</members>
         <members>Lote__c.Total_Cosechado_Kg__c</members>
