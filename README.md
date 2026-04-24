@@ -374,7 +374,8 @@ Displays a quick-entry modal form to register a new harvest (`Cosecha__c`) direc
 - Captures `Peso_Kg__c`, `Fecha_cosecha__c`, and `Notas__c`.
 - Automatically associates the harvest with the current `Lote__c` context using `@api recordId`.
 - Provides user feedback via `ShowToastEvent` on success or failure.
-- Dispatches a `RefreshEvent` and a `CloseActionScreenEvent` upon successful creation to close the modal and automatically refresh sibling components (like the Lote Card and Cosecha Timeline) via Lightning Data Service cache invalidation.
+- Dispatches a `RefreshEvent` and a `CloseActionScreenEvent` upon successful creation to close the modal and refresh sibling components via LDS cache invalidation.
+- Publishes a `CosechaActualizadaChannel__c` LMS message with the `loteId` so that `loteCard` and `cosechaTimeline` — which live in different flexipage regions — refresh their data without a full page reload (see HU-22).
 
 To add to a record page: go to Object Manager → `Lote__c` → Buttons, Links, and Actions → New Action → Select "Lightning Web Component" and choose `registrarCosecha`. Then add the action to the Page Layout.
 
@@ -541,6 +542,56 @@ Realiza un *Callout* en bloque a Laravel cuando el Batch `ArchivarLotesViejos` (
   ]
 }
 ```
+
+---
+
+## Milestone 6 — LWC Avanzado — Comunicación entre Componentes
+
+### HU-22: Lightning Message Service — `CosechaActualizadaChannel__c`
+
+**Canal:** `CosechaActualizadaChannel__c` · **Publicador:** `registrarCosecha` · **Suscriptores:** `loteCard`, `cosechaTimeline`
+
+Permite que componentes en distintas regiones del mismo flexipage se sincronicen sin relación padre-hijo, evitando una recarga completa de página cuando se registra una cosecha.
+
+#### Canal
+
+```xml
+<!-- CosechaActualizadaChannel.messageChannel-meta.xml -->
+<LightningMessageChannel>
+    <masterLabel>CosechaActualizada</masterLabel>
+    <lightningMessageFields>
+        <fieldName>loteId</fieldName>   <!-- Id del Lote__c afectado -->
+    </lightningMessageFields>
+</LightningMessageChannel>
+```
+
+#### Flow
+
+```
+registrarCosecha.handleGuardar()
+  └─ crearCosecha (Apex imperativo)
+        └─ on success:
+              ├─ publish(messageContext, CHANNEL, { loteId })      ← LMS broadcast
+              ├─ dispatchEvent(new RefreshEvent())                  ← LDS invalidation
+              └─ dispatchEvent(new CloseActionScreenEvent())        ← close modal
+
+loteCard (suscriptor)                      cosechaTimeline (suscriptor)
+  connectedCallback → subscribe()            connectedCallback → subscribe()
+  on message (loteId matches):               on message (loteId matches):
+    getRecordNotifyChange([{recordId}])         refreshApex(wiredCosechasResult)
+  disconnectedCallback → unsubscribe()      disconnectedCallback → unsubscribe()
+```
+
+#### Estrategia de refresco por componente
+
+| Componente | Mecanismo | Por qué |
+|------------|-----------|---------|
+| `loteCard` | `getRecordNotifyChange` | Usa `@wire(getRecord)` — invalidar la caché LDS es suficiente para que el wire se re-ejecute |
+| `cosechaTimeline` | `refreshApex` | Usa `@wire(getCosechas)` con Apex — requiere re-ejecutar la llamada explícitamente |
+
+#### Gestión del ciclo de vida
+
+Ambos suscriptores guardan la referencia de suscripción en `_subscription` y llaman a `unsubscribe()` en `disconnectedCallback` para evitar memory leaks cuando el componente se desmonta del DOM.
 
 ---
 

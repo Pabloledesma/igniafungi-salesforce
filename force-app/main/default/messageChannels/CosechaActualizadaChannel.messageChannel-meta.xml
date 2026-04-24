@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>CosechaActualizada</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Published by registrarCosecha when a Cosecha__c is created successfully. loteCard and cosechaTimeline subscribe to refresh their data without a full page reload.</description>
+    <lightningMessageFields>
+        <fieldName>loteId</fieldName>
+        <description>Salesforce ID of the Lote__c whose harvest data changed.</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

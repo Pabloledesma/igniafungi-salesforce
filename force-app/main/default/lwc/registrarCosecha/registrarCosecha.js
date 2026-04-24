@@ -1,11 +1,15 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { RefreshEvent } from 'lightning/refresh';
 import { CloseActionScreenEvent } from 'lightning/actions';
+import { MessageContext, publish } from 'lightning/messageService';
+import COSECHA_ACTUALIZADA_CHANNEL from '@salesforce/messageChannel/CosechaActualizadaChannel__c';
 import crearCosecha from '@salesforce/apex/RegistrarCosechaController.crearCosecha';
 
 export default class RegistrarCosecha extends LightningElement {
     @api recordId; // Lote__c Id
+
+    @wire(MessageContext) messageContext;
     
     isLoading = false;
     peso = '';
@@ -56,6 +60,9 @@ export default class RegistrarCosecha extends LightningElement {
                 })
             );
             
+            // Notificar a componentes no relacionados vía LMS
+            publish(this.messageContext, COSECHA_ACTUALIZADA_CHANNEL, { loteId: this.recordId });
+
             // Disparar evento para recargar la caché de LDS y refrescar otros componentes
             this.dispatchEvent(new RefreshEvent());
             

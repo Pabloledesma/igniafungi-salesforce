@@ -1,5 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue, getRecordNotifyChange } from 'lightning/uiRecordApi';
+import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
+import COSECHA_ACTUALIZADA_CHANNEL from '@salesforce/messageChannel/CosechaActualizadaChannel__c';
 import ESTADO_FIELD           from '@salesforce/schema/Lote__c.Estado__c';
 import EFICIENCIA_FIELD       from '@salesforce/schema/Lote__c.Eficiencia_Biologica__c';
 import TOTAL_COSECHADO_FIELD  from '@salesforce/schema/Lote__c.Total_Cosechado_Kg__c';
@@ -27,8 +29,28 @@ const MS_PER_DAY = 1000 * 60 * 60 * 24;
 export default class LoteCard extends LightningElement {
     @api recordId;
 
+    @wire(MessageContext) messageContext;
+    _subscription;
+
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     lote;
+
+    connectedCallback() {
+        this._subscription = subscribe(
+            this.messageContext,
+            COSECHA_ACTUALIZADA_CHANNEL,
+            ({ loteId }) => {
+                if (loteId === this.recordId) {
+                    getRecordNotifyChange([{ recordId: this.recordId }]);
+                }
+            }
+        );
+    }
+
+    disconnectedCallback() {
+        unsubscribe(this._subscription);
+        this._subscription = null;
+    }
 
     get isLoading() {
         return !this.lote.data && !this.lote.error;
