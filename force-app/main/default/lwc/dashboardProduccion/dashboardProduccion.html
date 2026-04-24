@@ -64,6 +64,43 @@
                 </lightning-layout-item>
 
             </lightning-layout>
+
+            <!-- Lista de lotes activos -->
+            <div class="slds-var-m-top_medium">
+                <div class="slds-text-heading_small slds-var-m-bottom_x-small">Lotes en producción</div>
+
+                <template lwc:if={hasLotes}>
+                    <div class="lotes-list">
+                        <!-- Cabecera -->
+                        <div class="lotes-list__header">
+                            <span>Nombre</span>
+                            <span>Cepa</span>
+                            <span>Estado</span>
+                            <span class="slds-text-align_right">Eficiencia</span>
+                        </div>
+                        <!-- Filas -->
+                        <template for:each={lotesActivosList.data} for:item="lote">
+                            <c-lote-row
+                                key={lote.Id}
+                                lote={lote}
+                                selected-lote-id={selectedLoteId}
+                                onloteselected={handleLoteSelected}>
+                            </c-lote-row>
+                        </template>
+                    </div>
+                </template>
+
+                <template lwc:elseif={lotesActivosList.error}>
+                    <div class="slds-text-color_error">Error al cargar lotes</div>
+                </template>
+
+                <template lwc:else>
+                    <div class="slds-text-color_weak slds-text-align_center slds-var-p-around_medium">
+                        No hay lotes activos
+                    </div>
+                </template>
+            </div>
+
         </div>
     </lightning-card>
 </template>

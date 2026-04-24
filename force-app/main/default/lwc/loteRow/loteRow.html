@@ -1,0 +1,8 @@
+<template>
+    <div class={rowClass} onclick={handleClick} role="button" tabindex="0">
+        <span class="lote-row__name">{lote.Name}</span>
+        <span class="lote-row__cepa">{lote.Cepa__c}</span>
+        <span class={estadoClass}>{lote.Estado__c}</span>
+        <span class="lote-row__eficiencia">{eficiencia}%</span>
+    </div>
+</template>

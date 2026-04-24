@@ -44,6 +44,16 @@ public class DashboardProduccionControllerTest {
     }
     
     @isTest
+    static void testGetLotesActivosList() {
+        Test.startTest();
+        List<Lote__c> lotes = DashboardProduccionController.getLotesActivosList();
+        Test.stopTest();
+
+        System.assertEquals(1, lotes.size(), 'Debería devolver solo el lote activo');
+        System.assertEquals('En Producción', lotes[0].Estado__c);
+    }
+
+    @isTest
     static void testEmptyStates() {
         // Delete all data to test null/empty returns
         delete [SELECT Id FROM Cosecha__c];

@@ -1,0 +1,53 @@
+.lote-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    gap: 0.5rem;
+}
+
+.lote-row:hover {
+    background-color: #f3f3f3;
+}
+
+.lote-row--selected {
+    background-color: #e8f4fd;
+    border-left: 3px solid #0176d3;
+}
+
+.lote-row__name {
+    font-size: 0.8rem;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lote-row__cepa {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.lote-row__eficiencia {
+    text-align: right;
+    font-weight: 600;
+    color: #2e844a;
+}
+
+/* Estado pills */
+.estado-pill {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+}
+.estado-inoculacion  { background: #d9e8fb; color: #0c4da2; }
+.estado-colonizacion { background: #fde8d5; color: #7a3d00; }
+.estado-produccion   { background: #d4f5e0; color: #1a6636; }
+.estado-finalizado   { background: #ead7ff; color: #5c1bb5; }
+.estado-archivado    { background: #e5e5e5; color: #555;    }

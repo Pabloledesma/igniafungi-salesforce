@@ -547,6 +547,57 @@ Realiza un *Callout* en bloque a Laravel cuando el Batch `ArchivarLotesViejos` (
 
 ## Milestone 6 — LWC Avanzado — Comunicación entre Componentes
 
+### HU-20: `loteRow` — Comunicación Padre → Hijo y Hijo → Padre
+
+**Componente hijo:** `loteRow` · **Padre:** `dashboardProduccion`
+
+Extrae la presentación de cada lote activo a un componente hijo reutilizable. El padre itera la lista y pasa cada objeto; el hijo notifica al padre cuando el usuario hace click.
+
+#### Componentes involucrados
+
+| Componente | Rol | Apex |
+|------------|-----|------|
+| `dashboardProduccion` | Padre — gestiona lista y lote seleccionado | `getLotesActivosList()` |
+| `loteRow` | Hijo — muestra fila y dispara evento | — |
+
+#### Apex — `DashboardProduccionController.getLotesActivosList()`
+
+Nuevo método `@AuraEnabled(cacheable=true)` que devuelve todos los `Lote__c` no archivados ni finalizados con los campos `Id`, `Name`, `Cepa__c`, `Estado__c`, `Eficiencia_Biologica__c`, ordenados por fecha de creación descendente.
+
+#### Flow de comunicación
+
+```
+dashboardProduccion
+  @wire(getLotesActivosList) → lotesActivosList.data
+  @track selectedLoteId
+
+  <template for:each={lotesActivosList.data}>
+    <c-lote-row
+        lote={lote}
+        selected-lote-id={selectedLoteId}      ← Padre → Hijo: datos + estado de selección
+        onloteselected={handleLoteSelected}>   ← Hijo → Padre: evento con loteId
+    </c-lote-row>
+  </template>
+
+loteRow
+  @api lote             ← recibe el objeto completo del padre
+  @api selectedLoteId   ← recibe el ID activo para auto-calcular isSelected
+
+  handleClick() → dispatchEvent(new CustomEvent('loteselected', { detail: { loteId } }))
+```
+
+#### `loteRow` — propiedades y getters
+
+| Propiedad / Getter | Tipo | Descripción |
+|--------------------|------|-------------|
+| `@api lote` | `Lote__c` | Objeto completo recibido del padre |
+| `@api selectedLoteId` | `String` | ID del lote activo; el hijo calcula si está seleccionado |
+| `isSelected` | getter | `true` cuando `lote.Id === selectedLoteId` |
+| `rowClass` | getter | Añade `lote-row--selected` cuando `isSelected` es `true` |
+| `estadoClass` | getter | Clase CSS del badge según `Estado__c` |
+
+---
+
 ### HU-22: Lightning Message Service — `CosechaActualizadaChannel__c`
 
 **Canal:** `CosechaActualizadaChannel__c` · **Publicador:** `registrarCosecha` · **Suscriptores:** `loteCard`, `cosechaTimeline`

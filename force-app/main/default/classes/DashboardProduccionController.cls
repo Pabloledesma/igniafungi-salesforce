@@ -18,4 +18,14 @@ public with sharing class DashboardProduccionController {
         Decimal promedio = (Decimal)results[0].get('promedio');
         return promedio != null ? promedio.setScale(2) : 0;
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Lote__c> getLotesActivosList() {
+        return [
+            SELECT Id, Name, Cepa__c, Estado__c, Eficiencia_Biologica__c
+            FROM   Lote__c
+            WHERE  Estado__c NOT IN ('Archivado', 'Finalizado')
+            ORDER BY CreatedDate DESC
+        ];
+    }
 }

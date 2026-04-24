@@ -1,0 +1,22 @@
+.lotes-list {
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.lotes-list__header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+    padding: 0.4rem 0.75rem;
+    background-color: #f3f3f3;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    gap: 0.5rem;
+}
+
+.lotes-list__header span:last-child {
+    text-align: right;
+}
