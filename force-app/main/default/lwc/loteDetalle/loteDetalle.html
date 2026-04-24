@@ -1,0 +1,43 @@
+<template>
+    <div class="detalle-panel">
+
+        <div class="detalle-panel__header">
+            <template lwc:if={isLoading}>
+                <lightning-spinner size="small" alternative-text="Cargando"></lightning-spinner>
+            </template>
+            <template lwc:else>
+                <div class="detalle-panel__title">
+                    <span class="detalle-panel__nombre">{nombre}</span>
+                    <span class={estadoClass}>{estado}</span>
+                </div>
+                <span class="detalle-panel__cepa">{cepa}</span>
+            </template>
+            <button class="detalle-panel__close" onclick={handleCerrar} title="Cerrar">&#x2715;</button>
+        </div>
+
+        <template lwc:if={lote.data}>
+            <div class="detalle-panel__body">
+                <div class="detalle-stat">
+                    <span class="detalle-stat__label">Eficiencia</span>
+                    <div class="detalle-stat__bar">
+                        <lightning-progress-bar value={eficienciaClamped} size="small"></lightning-progress-bar>
+                    </div>
+                    <span class="detalle-stat__value detalle-stat__value--eficiencia">{eficiencia}%</span>
+                </div>
+                <div class="detalle-stat">
+                    <span class="detalle-stat__label">Total cosechado</span>
+                    <span class="detalle-stat__value">{totalCosechado} kg</span>
+                </div>
+                <div class="detalle-stat">
+                    <span class="detalle-stat__label">Días activo</span>
+                    <span class="detalle-stat__value">{diasActivo}</span>
+                </div>
+            </div>
+        </template>
+
+        <template lwc:if={lote.error}>
+            <div class="slds-var-p-around_small slds-text-color_error">Error al cargar el lote</div>
+        </template>
+
+    </div>
+</template>

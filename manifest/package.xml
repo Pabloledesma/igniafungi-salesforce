@@ -98,6 +98,7 @@
         <members>cosechaTimeline</members>
         <members>dashboardProduccion</members>
         <members>loteCard</members>
+        <members>loteDetalle</members>
         <members>loteRow</members>
         <members>registrarCosecha</members>
         <name>LightningComponentBundle</name>

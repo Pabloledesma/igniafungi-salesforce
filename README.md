@@ -38,8 +38,10 @@ force-app/main/default/
 ├── lwc/
 │   ├── loteCard/                 # LWC: production summary card for Lote__c record page
 │   ├── cosechaTimeline/          # LWC: chronological harvest timeline with accumulated weight
-│   ├── dashboardProduccion/      # LWC: global metrics for Home Page
-│   └── registrarCosecha/         # LWC: quick-entry form to register a new harvest
+│   ├── dashboardProduccion/      # LWC: global metrics + active lotes list (Home Page)
+│   ├── registrarCosecha/         # LWC: quick-entry form to register a new harvest
+│   ├── loteRow/                  # LWC child: single row in the lotes list (HU-20)
+│   └── loteDetalle/              # LWC child: detail panel for the selected lote (HU-21)
 └── manifest/
     └── package.xml               # Metadata manifest for org retrieval
 ```
@@ -595,6 +597,57 @@ loteRow
 | `isSelected` | getter | `true` cuando `lote.Id === selectedLoteId` |
 | `rowClass` | getter | Añade `lote-row--selected` cuando `isSelected` es `true` |
 | `estadoClass` | getter | Clase CSS del badge según `Estado__c` |
+
+---
+
+### HU-21: `loteDetalle` — Panel de Detalle con Renderizado Condicional
+
+**Componente hijo:** `loteDetalle` · **Padre:** `dashboardProduccion`
+
+Panel de detalle que aparece dentro del `dashboardProduccion` cuando el usuario selecciona un lote en la lista. Hace su propio `@wire(getRecord)` para cargar los datos del lote en tiempo real y expone un botón "Cerrar" que le indica al padre que limpie la selección.
+
+#### Flow de comunicación
+
+```
+dashboardProduccion
+  @track selectedLoteId
+
+  <template lwc:if={selectedLoteId}>        ← el panel existe en el DOM solo cuando hay selección
+    <c-lote-detalle
+        record-id={selectedLoteId}          ← Padre → Hijo: ID del lote activo
+        oncerrar={handleCerrar}>            ← Hijo → Padre: evento para limpiar la selección
+    </c-lote-detalle>
+  </template>
+
+  handleCerrar() → selectedLoteId = null   ← desmonta el panel y deselecciona la fila en loteRow
+```
+
+#### `loteDetalle` — propiedades y getters
+
+| Propiedad / Getter | Tipo | Descripción |
+|--------------------|------|-------------|
+| `@api recordId` | `String` | ID del `Lote__c` a mostrar, recibido del padre |
+| `@wire(getRecord)` | — | Carga en tiempo real los campos del lote |
+| `nombre` | getter | `Lote__c.Name` |
+| `cepa` | getter | `Cepa__c` |
+| `estado` | getter | `Estado__c` |
+| `estadoClass` | getter | Clase CSS del badge según `Estado__c` |
+| `eficiencia` | getter | `Eficiencia_Biologica__c` |
+| `eficienciaClamped` | getter | Eficiencia limitada a 100 para `lightning-progress-bar` |
+| `totalCosechado` | getter | `Total_Cosechado_Kg__c` en kg |
+| `diasActivo` | getter | Días transcurridos desde `Fecha_Inoculacion__c` (calculado en cliente) |
+
+#### Campos consultados vía `getRecord`
+
+```js
+[Name, Cepa__c, Estado__c, Eficiencia_Biologica__c, Total_Cosechado_Kg__c, Fecha_Inoculacion__c]
+```
+
+#### Comportamiento del renderizado condicional
+
+- El `lwc:if={selectedLoteId}` en el padre hace que `loteDetalle` **se monte y desmonte** del DOM cada vez que cambia la selección. Esto garantiza que `@wire(getRecord)` siempre cargue datos frescos del lote activo.
+- El botón ✕ en el header del panel dispara `dispatchEvent(new CustomEvent('cerrar'))`, que el padre captura con `oncerrar={handleCerrar}` y limpia `selectedLoteId`.
+- El efecto de deselección es encadenado: `selectedLoteId = null` → el panel se desmonta (`lwc:if` false) → `loteRow` recibe `selectedLoteId = null` → ninguna fila queda marcada como `lote-row--selected`.
 
 ---
 

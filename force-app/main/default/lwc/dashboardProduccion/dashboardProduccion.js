@@ -19,4 +19,8 @@ export default class DashboardProduccion extends LightningElement {
     handleLoteSelected(event) {
         this.selectedLoteId = event.detail.loteId;
     }
+
+    handleCerrar() {
+        this.selectedLoteId = null;
+    }
 }

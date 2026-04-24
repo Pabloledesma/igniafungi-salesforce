@@ -1,0 +1,104 @@
+.detalle-panel {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    background: #fff;
+    margin-top: 0.75rem;
+    overflow: hidden;
+}
+
+.detalle-panel__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.6rem 0.75rem;
+    background: #f3f3f3;
+    border-bottom: 1px solid #d8dde6;
+    gap: 0.5rem;
+}
+
+.detalle-panel__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.detalle-panel__nombre {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #181818;
+}
+
+.detalle-panel__cepa {
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 0.1rem;
+}
+
+.detalle-panel__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1;
+    padding: 0.1rem 0.25rem;
+    flex-shrink: 0;
+    border-radius: 2px;
+}
+
+.detalle-panel__close:hover {
+    background: #e5e5e5;
+    color: #181818;
+}
+
+.detalle-panel__body {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detalle-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detalle-stat__label {
+    font-size: 0.75rem;
+    color: #666;
+    min-width: 6rem;
+    flex-shrink: 0;
+}
+
+.detalle-stat__bar {
+    flex: 1;
+}
+
+.detalle-stat__value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #181818;
+}
+
+.detalle-stat__value--eficiencia {
+    color: #2e844a;
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* Estado pills — mismo juego de colores que loteRow */
+.estado-pill {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.estado-inoculacion  { background: #d9e8fb; color: #0c4da2; }
+.estado-colonizacion { background: #fde8d5; color: #7a3d00; }
+.estado-produccion   { background: #d4f5e0; color: #1a6636; }
+.estado-finalizado   { background: #ead7ff; color: #5c1bb5; }
+.estado-archivado    { background: #e5e5e5; color: #555;    }

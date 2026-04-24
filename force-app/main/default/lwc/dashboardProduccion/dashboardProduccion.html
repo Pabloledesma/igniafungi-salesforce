@@ -101,6 +101,14 @@
                 </template>
             </div>
 
+            <!-- Panel de detalle del lote seleccionado -->
+            <template lwc:if={selectedLoteId}>
+                <c-lote-detalle
+                    record-id={selectedLoteId}
+                    oncerrar={handleCerrar}>
+                </c-lote-detalle>
+            </template>
+
         </div>
     </lightning-card>
 </template>
